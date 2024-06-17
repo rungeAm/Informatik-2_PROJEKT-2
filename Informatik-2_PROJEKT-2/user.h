@@ -277,7 +277,7 @@ public:
 		int err = send(connectSockets[connectionNr], message.c_str(), message.length(), 0);
 		if (err == SOCKET_ERROR) {
 			{
-				cout << "Send failed with error: " << WSAGetLastError() << endl;
+				cout << "Sending Friendrequest failed with error: " << WSAGetLastError() << endl;
 				return -1;
 			}
 
@@ -344,7 +344,15 @@ public:
 		{
 			char buffer[1024] = "";
 			std::string IP;
-			recv(acceptSockets[connectionNr], buffer, 1023, 0);
+			
+			int err =  recv(acceptSockets[connectionNr], buffer, 1023, 0);
+			if (err == 0)
+			{
+				if (debug)
+				cout << "backconnect failed! " << endl;
+				return -1;
+			}
+
 			IP = checkBACKCONNECT((string)buffer);
 
 
@@ -365,7 +373,12 @@ public:
 			char buffer[1024] = "";
 			std::string IPtoSend = IP_Store[rand() % IP_Store.size()];
 
-			recv(acceptSockets[connectionNr], buffer, 1023, 0);
+		int err = 	recv(acceptSockets[connectionNr], buffer, 1023, 0);
+		if (err == 0)
+		{
+			cout << "Error recieving Friendrequest! " << endl;
+			return -1;
+		}
 
 			if (string(buffer) == "FRIEND REQUEST")
 
