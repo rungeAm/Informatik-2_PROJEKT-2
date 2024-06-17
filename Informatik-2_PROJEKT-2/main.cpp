@@ -43,9 +43,25 @@ int main()
 		
 
 		joiningUser.create_connectSocket(DEBUG_MODE);
-		joiningUser.connect_(0, DEBUG_MODE);
+		joiningUser.connect_(joiningUser.connectIP, 0, DEBUG_MODE);
 
 		joiningUser.sendHandshake(0, DEBUG_MODE);
+		joiningUser.sendBackconnect(0, DEBUG_MODE);
+
+		//---------------------------------
+
+		cout << "switching from send to recieve!" << endl << endl;
+
+		joiningUser.create_mainSocket(DEBUG_MODE);
+
+		joiningUser.bind_(DEBUG_MODE);
+		joiningUser.listen_(20, DEBUG_MODE);
+		joiningUser.accept_(0, DEBUG_MODE);
+
+		joiningUser.handleHandshake(0, DEBUG_MODE);
+		joiningUser.handleBackconnect(0, DEBUG_MODE);
+
+
 
 	}
 	else
@@ -61,8 +77,19 @@ int main()
 		firstUser.listen_(20, DEBUG_MODE);
 		firstUser.accept_(0, DEBUG_MODE);
 
-		firstUser.handleHandshake(0, DEBUG_MODE);
+		firstUser.handleHandshake(0, DEBUG_MODE); 
+		firstUser.handleBackconnect(0, DEBUG_MODE);
+
+		//--------------------------
+
+		cout << "Switching from recieve to send! " << endl << endl;
 		 
+
+		firstUser.create_connectSocket(DEBUG_MODE);
+		firstUser.connect_(firstUser.IP_Store[0], 0, DEBUG_MODE);
+
+		firstUser.sendHandshake(0, DEBUG_MODE);
+		firstUser.sendBackconnect(0, DEBUG_MODE);
 
 	}
 	

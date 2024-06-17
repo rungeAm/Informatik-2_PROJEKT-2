@@ -157,12 +157,12 @@ public:
 		}
 	}
 
-	int connect_(int connectionNr, bool debug)
+	int connect_(std::string IP, int connectionNr, bool debug)
 	{
 		sockaddr_in sAddr;
 		sAddr.sin_family = AF_INET;
 		sAddr.sin_port = htons(port);
-		inet_pton(AF_INET, connectIP.c_str(), &sAddr.sin_addr.s_addr);
+		inet_pton(AF_INET, IP.c_str(), &sAddr.sin_addr.s_addr);
 
 		if ((connect(connectSockets[connectionNr], (SOCKADDR*)&sAddr, sizeof(sAddr))) != 0)
 		{
@@ -203,6 +203,21 @@ public:
 		return 0;
 	}
 
+	int sendBackconnect(int connectionNr, bool debug)
+	{
+
+		std::string message = "BACKCONNECT " + ownIP;
+
+		int sendResult = send(connectSockets[connectionNr], message.c_str(), message.length(), 0);
+		if (sendResult == SOCKET_ERROR) {
+			cout << "Send failed with error: " << WSAGetLastError() << endl;
+
+
+		}
+		return 0;
+	}
+
+
 	int handleHandshake(int connectionNr, bool debug)
 	{
 		char buffer[1024] = { 0 };
@@ -237,5 +252,28 @@ public:
 		}
 
 	}
+
+	int handleBackconnect(int connectionNr, bool debug)
+	{
+		char buffer[1024] = "";
+		std::string IP;
+		recv(acceptSockets[connectionNr], buffer, 1023, 0);
+		IP = checkBACKCONNECT((string)buffer);
+
+		if (checkIP(IP) == 0) IP_Store.push_back(IP);
+		return 0;
+	}
+
+
+	int checkIP(std::string IP)
+	{
+		for (int i = 0; i < IP_Store.size(); i++)
+		{
+			if (IP == IP_Store[i]) return -1;
+			
+		}
+		return 0;
+	}
+
 
 };
