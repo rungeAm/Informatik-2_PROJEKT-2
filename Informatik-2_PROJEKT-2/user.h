@@ -187,7 +187,7 @@ public:
 		sAddr.sin_port = htons(port);
 		inet_pton(AF_INET, IP.c_str(), &sAddr.sin_addr.s_addr);
 
-		if ((connect(mainSocket, (SOCKADDR*)&sAddr, sizeof(sAddr))) != 0)
+		if ((connect(connectSockets[connectionNr], (SOCKADDR*)&sAddr, sizeof(sAddr))) != 0)
 		{
 			if (debug)
 				cout << "connect failed. Error: " << WSAGetLastError() << endl;
