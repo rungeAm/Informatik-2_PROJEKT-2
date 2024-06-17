@@ -18,9 +18,12 @@ using std::string;
 bool DEBUG_MODE = 1;
 int PORT = 26005;
 
-string IP1 = "192.168.178.25";
-string IP2 = "192.168.178.27";
-string IP3 = "192.168.178.24";
+//string IP1 = "192.168.178.25";
+//string IP2 = "192.168.178.27";
+//string IP3 = "192.168.178.24";
+
+string IP1 = "192.168.1.102";
+string IP2 = "192.168.1.105";
 
 
 //==================================================
@@ -49,6 +52,8 @@ int main()
 	//	joiningUser.sendSth(0, DEBUG_MODE);
 		joiningUser.sendHandshake(0, DEBUG_MODE);
 		joiningUser.sendBackconnect(0, DEBUG_MODE);
+
+
 
 
 		//---------------------------------
