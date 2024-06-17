@@ -16,10 +16,11 @@ using  std::cin;
 using std::string;
 
 bool DEBUG_MODE = 1;
-int PORT = 26001;
+int PORT = 26000;
 
 string IP1 = "192.168.178.25";
 string IP2 = "192.168.178.27";
+string IP3 = "192.168.178.24";
 
 
 //==================================================
@@ -37,16 +38,20 @@ int main()
 	{
 		User joiningUser;
 
-		joiningUser.connectIP = IP1;
-		joiningUser.ownIP = IP2;
+		joiningUser.connectIP = IP3;
+		joiningUser.ownIP = IP1;
 		joiningUser.port = PORT;
 		
 
 		joiningUser.create_connectSocket(DEBUG_MODE);
 		joiningUser.connect_(joiningUser.connectIP, 0, DEBUG_MODE);
 
+		//joiningUser.sendSth(0, DEBUG_MODE);
+		joiningUser.recieveSth(0, DEBUG_MODE);
+
 		joiningUser.sendHandshake(0, DEBUG_MODE);
 		joiningUser.sendBackconnect(0, DEBUG_MODE);
+
 
 		//---------------------------------
 
@@ -60,6 +65,7 @@ int main()
 
 		joiningUser.handleHandshake(0, DEBUG_MODE);
 		joiningUser.handleBackconnect(0, DEBUG_MODE);
+		joiningUser.handleFrienrequest(0, DEBUG_MODE);
 
 
 
@@ -90,7 +96,7 @@ int main()
 
 		firstUser.sendHandshake(0, DEBUG_MODE);
 		firstUser.sendBackconnect(0, DEBUG_MODE);
-
+		firstUser.sendFriendrequest(0, DEBUG_MODE);
 	}
 	
 	return 0;
