@@ -45,7 +45,7 @@ int main()
 		joiningUser.create_connectSocket(DEBUG_MODE);
 		joiningUser.connect_(0, DEBUG_MODE);
 
-		joiningUser.sendHandshake(0, DEBUG_MODE)
+		joiningUser.sendHandshake(0, DEBUG_MODE);
 
 	}
 	else

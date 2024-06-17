@@ -200,7 +200,7 @@ public:
 			check_INFO2OK((string)buffer);
 			HandshakeOK = true;
 		}
-
+		return 0;
 	}
 
 	int handleHandshake(int connectionNr, bool debug)
