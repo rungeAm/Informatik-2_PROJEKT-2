@@ -54,7 +54,7 @@ int main()
 
 		joiningUser.create_mainSocket(DEBUG_MODE);
 
-		joiningUser.bind_(joiningUser.IP_Store[0], DEBUG_MODE);
+		joiningUser.bind_(joiningUser.ownIP, DEBUG_MODE);
 		joiningUser.listen_(20, DEBUG_MODE);
 		joiningUser.accept_(0, DEBUG_MODE);
 
