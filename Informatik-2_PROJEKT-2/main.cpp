@@ -38,7 +38,7 @@ int main()
 	{
 		User joiningUser;
 
-		joiningUser.connectIP = IP2;
+		joiningUser.connectIP = IP3;
 		joiningUser.ownIP = IP1;
 		joiningUser.port = PORT;
 		
@@ -46,7 +46,7 @@ int main()
 		joiningUser.create_connectSocket(DEBUG_MODE);
 		joiningUser.connect_(joiningUser.connectIP, 0, DEBUG_MODE);
 
-
+		joiningUser.sendSth(0, DEBUG_MODE);
 		joiningUser.sendHandshake(0, DEBUG_MODE);
 		joiningUser.sendBackconnect(0, DEBUG_MODE);
 
