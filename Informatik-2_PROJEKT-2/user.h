@@ -378,7 +378,8 @@ public:
 	int handleFriendrequest(int connectionNr, bool debug)
 		{
 			char buffer[1024] = "";
-			std::string IPtoSend = IP_Store[rand() % IP_Store.size()];
+			//std::string IPtoSend = IP_Store[(rand() % IP_Store.size())-1];
+			std::string IPtoSend = IP_Store[0];
 
 		int err = 	recv(acceptSockets[connectionNr], buffer, 1023, 0);
 		if (err == 0)
