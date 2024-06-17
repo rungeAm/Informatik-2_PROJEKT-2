@@ -16,7 +16,7 @@ using  std::cin;
 using std::string;
 
 bool DEBUG_MODE = 1;
-int PORT = 55555;
+int PORT = 26005;
 
 string IP1 = "192.168.178.25";
 string IP2 = "192.168.178.27";
@@ -38,7 +38,7 @@ int main()
 	{
 		User joiningUser;
 
-		joiningUser.connectIP = IP3;
+		joiningUser.connectIP = IP2;
 		joiningUser.ownIP = IP1;
 		joiningUser.port = PORT;
 		
@@ -46,7 +46,7 @@ int main()
 		joiningUser.create_connectSocket(DEBUG_MODE);
 		joiningUser.connect_(joiningUser.connectIP, 0, DEBUG_MODE);
 
-		joiningUser.sendSth(0, DEBUG_MODE);
+	//	joiningUser.sendSth(0, DEBUG_MODE);
 		joiningUser.sendHandshake(0, DEBUG_MODE);
 		joiningUser.sendBackconnect(0, DEBUG_MODE);
 
@@ -72,7 +72,7 @@ int main()
 	{
 		User firstUser;
 
-		firstUser.ownIP = IP2;
+		firstUser.ownIP = IP1;
 		firstUser.port = PORT;
 
 		firstUser.create_mainSocket(DEBUG_MODE);
