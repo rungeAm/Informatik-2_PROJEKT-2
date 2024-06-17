@@ -139,9 +139,9 @@ public:
 
 	int accept_(int connectionNr, bool debug)
 	{
-		this->acceptSockets[connectionNr] = accept(this->mainSocket, NULL, NULL);
+		this->acceptSockets[connectionNr] = accept(mainSocket, NULL, NULL);
 
-		if (this->acceptSockets[connectionNr] == INVALID_SOCKET)
+		if (acceptSockets[connectionNr] == INVALID_SOCKET)
 		{
 			if (debug)
 				cout << "Accept failed, Error: " << WSAGetLastError() << endl;
