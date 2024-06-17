@@ -46,8 +46,6 @@ int main()
 		joiningUser.create_connectSocket(DEBUG_MODE);
 		joiningUser.connect_(joiningUser.connectIP, 0, DEBUG_MODE);
 
-		//joiningUser.sendSth(0, DEBUG_MODE);
-		//joiningUser.recieveSth(0, DEBUG_MODE);
 
 		joiningUser.sendHandshake(0, DEBUG_MODE);
 		joiningUser.sendBackconnect(0, DEBUG_MODE);
