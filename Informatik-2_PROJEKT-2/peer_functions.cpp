@@ -93,7 +93,7 @@ bool check_INFO2OK(std::string text)
 std::string checkBACKCONNECT(std::string text)
 {
 	string check1 = text.substr(0, 11);
-	string check2 = text.substr(11, (text.size() - 1));
+	string check2 = text.substr(12, (text.size() - 1));
 
 
 
