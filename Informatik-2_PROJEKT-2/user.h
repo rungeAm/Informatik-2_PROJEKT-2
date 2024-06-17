@@ -260,7 +260,7 @@ public:
 
 		int sendResult = send(connectSockets[connectionNr], message.c_str(), message.length(), 0);
 		if (sendResult == SOCKET_ERROR) {
-			cout << "Send failed with error: " << WSAGetLastError() << endl;
+			cout << "Backconnect failed with error: " << WSAGetLastError() << endl;
 
 
 		}
