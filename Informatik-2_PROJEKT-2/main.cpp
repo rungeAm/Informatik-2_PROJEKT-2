@@ -16,7 +16,7 @@ using  std::cin;
 using std::string;
 
 bool DEBUG_MODE = 1;
-int PORT = 26001;
+int PORT = 55555;
 
 string IP1 = "192.168.178.25";
 string IP2 = "192.168.178.27";
@@ -27,7 +27,7 @@ string IP3 = "192.168.178.24";
 
 int main()
 {
-	
+	WSACleanup();
 	bool firstUser = 0;
 
 	start_(DEBUG_MODE);
@@ -38,8 +38,8 @@ int main()
 	{
 		User joiningUser;
 
-		joiningUser.connectIP = IP1;
-		joiningUser.ownIP = IP2;
+		joiningUser.connectIP = IP2;
+		joiningUser.ownIP = IP1;
 		joiningUser.port = PORT;
 		
 
@@ -53,7 +53,7 @@ int main()
 
 		//---------------------------------
 
-		cout << "switching from send to recieve!" << endl << endl;
+		cout << endl << "switching from send to recieve!" << endl << endl;
 
 		joiningUser.create_mainSocket(DEBUG_MODE);
 
