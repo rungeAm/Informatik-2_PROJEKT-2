@@ -63,7 +63,7 @@ int main()
 
 		joiningUser.handleHandshake(0, DEBUG_MODE);
 		joiningUser.handleBackconnect(0, DEBUG_MODE);
-		joiningUser.handleFrienrequest(0, DEBUG_MODE);
+		joiningUser.handleFriendrequest(0, DEBUG_MODE);
 
 
 

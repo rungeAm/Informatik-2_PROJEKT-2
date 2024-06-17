@@ -360,7 +360,7 @@ public:
 
 		}
 
-	int handleFrienrequest(int connectionNr, bool debug)
+	int handleFriendrequest(int connectionNr, bool debug)
 		{
 			char buffer[1024] = "";
 			std::string IPtoSend = IP_Store[rand() % IP_Store.size()];
