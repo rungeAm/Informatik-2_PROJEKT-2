@@ -260,8 +260,15 @@ public:
 		recv(acceptSockets[connectionNr], buffer, 1023, 0);
 		IP = checkBACKCONNECT((string)buffer);
 
-		if (checkIP(IP) == 0) IP_Store.push_back(IP);
-		return 0;
+		
+		if (checkIP(IP) == 0)
+		{
+			IP_Store.push_back(IP);
+			return 0;
+		}
+		else
+			cout << "Couldnt store IP!" << endl;
+	
 	}
 
 
