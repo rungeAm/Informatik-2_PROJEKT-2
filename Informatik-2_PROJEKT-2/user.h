@@ -390,7 +390,7 @@ public:
 
 			if (string(buffer) == "FRIEND REQUEST")
 
-				if ((send(acceptSockets[connectionNr], IPtoSend.c_str(), 1023, 0)) == 0);
+				if ((send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0)) == 0);
 			{
 				if (debug)
 					cout << "Sent random IP: " << IPtoSend << endl;
