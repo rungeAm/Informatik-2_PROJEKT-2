@@ -26,10 +26,10 @@ class User
 public:
 
 
-	std::vector<SOCKET> connectSockets;
+	std::vector<SOCKET> connectSockets = {};
 
 	SOCKET mainSocket = INVALID_SOCKET;
-	std::vector<SOCKET> acceptSockets;
+	std::vector<SOCKET> acceptSockets = {};
 	sockaddr_in sAddr;
 
 	int port;
@@ -38,13 +38,15 @@ public:
 	std::vector<int>ID_Store;
 	std::vector<std::string>IP_Store;
 
+
+
 	int create_connectSocket(bool debug)
 	{
-		SOCKET* connectSocket = new SOCKET;
-		*connectSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+		SOCKET connectSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	
 
 
-		if (*connectSocket == INVALID_SOCKET)
+		if (connectSocket == INVALID_SOCKET)
 		{
 			if (debug)
 				std::cout << "Error creating TCP-socket! " << endl;
@@ -56,7 +58,7 @@ public:
 		{
 			if (debug)
 				cout << "Created TCP-socket successfully!" << endl;
-			this->connectSockets.push_back(*connectSocket);
+			this->connectSockets.push_back(connectSocket);
 
 			return 0;
 		}
@@ -68,11 +70,11 @@ public:
 	int create_mainSocket(bool debug)
 	{
 
-		SOCKET* acceptSocket = new SOCKET;
-		*acceptSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+		this->mainSocket = INVALID_SOCKET;
+		this->mainSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 
-		if (*acceptSocket == INVALID_SOCKET)
+		if (this->mainSocket == INVALID_SOCKET)
 		{
 			if (debug)
 				std::cout << "Error creating TCP-socket! " << endl;
@@ -84,7 +86,7 @@ public:
 		{
 			if (debug)
 				cout << "Created TCP-socket successfully!" << endl;
-			this->acceptSockets.push_back(*acceptSocket);
+	
 
 			return 0;
 		}
@@ -92,26 +94,26 @@ public:
 
 	}
 
-	int bind_(int port, bool debug)
+	int bind_(bool debug)
 	{
 		sockaddr_in sAddr;
 		sAddr.sin_family = AF_INET;
-		sAddr.sin_port = htons(this->port);
-		inet_pton(AF_INET, this->ownIP.c_str(), &sAddr.sin_addr.s_addr);
+		sAddr.sin_port = htons(port);
+		inet_pton(AF_INET, ownIP.c_str(), &sAddr.sin_addr.s_addr);
 
-		if ((bind(this->mainSocket, (SOCKADDR*)&sAddr, sizeof(sAddr)) == SOCKET_ERROR))
+		if ((bind(mainSocket, (SOCKADDR*)&sAddr, sizeof(sAddr)) == SOCKET_ERROR))
 		{
 			if (debug)
 				cout << "Binding server socket failed. Error: " << WSAGetLastError() << endl;
 
-			closesocket(this->mainSocket);
+			closesocket(mainSocket);
 			WSACleanup();
 			return -1;
 		}
 		else
 		{
 			if (debug)
-				cout << "Socket successfully bound to IP: " << this->ownIP << " and Port: " << port << endl;
+				cout << "Socket successfully bound to IP: " << ownIP << " and Port: " << port << endl;
 			return 0;
 		}
 	}
@@ -158,14 +160,14 @@ public:
 	{
 		sockaddr_in sAddr;
 		sAddr.sin_family = AF_INET;
-		sAddr.sin_port = htons(this->port);
-		inet_pton(AF_INET, this->connectIP.c_str(), &sAddr.sin_addr.s_addr);
+		sAddr.sin_port = htons(port);
+		inet_pton(AF_INET, connectIP.c_str(), &sAddr.sin_addr.s_addr);
 
-		if ((connect(this->connectSockets[connectionNr], (SOCKADDR*)&sAddr, sizeof(&sAddr))) != 0)
+		if ((connect(connectSockets[connectionNr], (SOCKADDR*)&sAddr, sizeof(sAddr))) != 0)
 		{
 			if (debug)
 				cout << "connect failed. Error: " << WSAGetLastError() << endl;
-			closesocket(this->connectSockets[connectionNr]);
+			closesocket(connectSockets[connectionNr]);
 			WSACleanup();
 			return 0;
 		}
