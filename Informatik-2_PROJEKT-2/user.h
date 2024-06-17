@@ -139,7 +139,7 @@ public:
 
 	int accept_(int connectionNr, bool debug)
 	{
-		this->acceptSockets[connectionNr] = accept(mainSocket, NULL, NULL);
+		acceptSockets.push_back(accept(mainSocket, NULL, NULL)) ;
 
 		if (acceptSockets[connectionNr] == INVALID_SOCKET)
 		{
