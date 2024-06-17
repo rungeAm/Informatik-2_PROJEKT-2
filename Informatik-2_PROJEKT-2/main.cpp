@@ -38,8 +38,8 @@ int main()
 	{
 		User joiningUser;
 
-		joiningUser.connectIP = IP3;
-		joiningUser.ownIP = IP1;
+		joiningUser.connectIP = IP1;
+		joiningUser.ownIP = IP2;
 		joiningUser.port = PORT;
 		
 
