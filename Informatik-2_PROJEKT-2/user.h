@@ -291,7 +291,7 @@ public:
 		if (err == SOCKET_ERROR) {
 			{
 				if (debug)
-					cout << "recieve failed with error: " << WSAGetLastError() << endl;
+					cout << "recieving friend IP failed with error: " << WSAGetLastError() << endl;
 				return -1;
 			}
 			if (checkIP((string)buffer))
