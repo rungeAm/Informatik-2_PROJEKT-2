@@ -72,7 +72,7 @@ int main()
 	{
 		User firstUser;
 
-		firstUser.ownIP = IP1;
+		firstUser.ownIP = IP2;
 		firstUser.port = PORT;
 
 		firstUser.create_mainSocket(DEBUG_MODE);
