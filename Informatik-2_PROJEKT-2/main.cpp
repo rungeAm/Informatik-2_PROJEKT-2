@@ -45,6 +45,8 @@ int main()
 		joiningUser.create_connectSocket(DEBUG_MODE);
 		joiningUser.connect_(0, DEBUG_MODE);
 
+		joiningUser.sendHandshake(0, DEBUG_MODE)
+
 	}
 	else
 	{
@@ -58,6 +60,8 @@ int main()
 		firstUser.bind_(DEBUG_MODE);
 		firstUser.listen_(20, DEBUG_MODE);
 		firstUser.accept_(0, DEBUG_MODE);
+
+		firstUser.handleHandshake(0, DEBUG_MODE);
 		 
 
 	}

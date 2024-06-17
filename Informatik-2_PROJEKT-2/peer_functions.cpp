@@ -40,14 +40,68 @@ int start_(bool debug)
 
 }
 
-sockaddr_in createSockaddr(string IP, int port)
+
+string floatToString(float num)
 {
+	std::stringstream ss;
+	string output;
+	ss << num;
+	ss >> output;
 
-	sockaddr_in sAddr;
-	sAddr.sin_family = AF_INET;
-	sAddr.sin_port = htons(port);
-	inet_pton(AF_INET, IP.c_str(), &sAddr.sin_addr.s_addr);
-
-
-	return sAddr;
+	return output;
 }
+
+float stringToFloat(string str)
+{
+	std::stringstream ss;
+	float output;
+
+	ss << str;
+	ss >> output;
+
+	return output;
+}
+
+bool check_INFO2CONNECT(std::string text, float version)
+{
+	string check1 = text.substr(0, 14);
+	string check2 = text.substr(14, (text.size() - 1));
+
+
+
+	if ((strcmp(check1.c_str(), "INFO2 CONNECT/")))
+	{
+		if ((stringToFloat(check2)) >= version)
+			return true;
+	}
+}
+
+bool check_INFO2OK(std::string text)
+{
+	if (text == "INFO2/OK\n\n")
+	{
+		cout << "Handshake success!" << endl;
+		return true;
+	}
+	else
+	{
+		cout << "Handshake fail!" << endl;
+		return false;
+	}
+}
+
+std::string checkBACKCONNECT(std::string text)
+{
+	string check1 = text.substr(0, 11);
+	string check2 = text.substr(11, (text.size() - 1));
+
+
+
+	if ((strcmp(check1.c_str(), "BACKCONNECT ")))
+	{
+		return check2;
+	}
+	else
+		cout << "backconnect error!" << endl;
+}
+

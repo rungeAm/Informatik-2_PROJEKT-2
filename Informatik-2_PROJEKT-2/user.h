@@ -33,6 +33,7 @@ public:
 	sockaddr_in sAddr;
 
 	int port;
+	float version;
 	std::string connectIP;
 	std::string ownIP;
 	std::vector<int>ID_Store;
@@ -178,5 +179,63 @@ public:
 		}
 	}
 
+	int sendHandshake(int connectionNr, bool debug)
+	{
+		string message = "INFO2 CONNECT/" + floatToString(version);
+		char buffer[1024] = { 0 };
+		bool HandshakeOK = 0;
+
+		int sendResult = send(connectSockets[connectionNr], message.c_str(), message.length(), 0);
+		if (sendResult == SOCKET_ERROR) {
+			if(debug)
+			cout << "Send failed with error: " << WSAGetLastError() << endl;
+		}
+
+
+		//...................................................RECV INFO2OK
+		int recvErr = recv(connectSockets[connectionNr], buffer, 1023, 0);
+		if (recvErr == SOCKET_ERROR) cout << "recieve error: " << WSAGetLastError();
+		else
+		{
+			check_INFO2OK((string)buffer);
+			HandshakeOK = true;
+		}
+
+	}
+
+	int handleHandshake(int connectionNr, bool debug)
+	{
+		char buffer[1024] = { 0 };
+		string recievedMessage = buffer;
+		string handshakeSucces = "INFO2/OK\n\n";
+
+		int recvErr = recv(acceptSockets[connectionNr], buffer, 1023, 0);
+		if (recvErr == SOCKET_ERROR) 
+		{
+			if(debug)
+			cout << "recieve error: " << WSAGetLastError();
+			closesocket(acceptSockets[connectionNr]);
+			WSACleanup();
+		}
+		else
+		{
+			if (debug)
+				cout << "Message sent: " << buffer << endl;
+		}
+
+
+		if (check_INFO2CONNECT(buffer, 0.7))
+		{
+			cout << "Handshake begin!" << endl;
+			int sendResult = send(acceptSockets[connectionNr], handshakeSucces.c_str(), handshakeSucces.length(), 0);
+			return 0;
+		}
+		else
+		{
+			cout << "Handshake fail!" << endl;
+			return 1;
+		}
+
+	}
 
 };
