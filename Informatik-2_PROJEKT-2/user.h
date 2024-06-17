@@ -289,11 +289,11 @@ public:
 
 		
 
-		char buffer[1024] = "";
+		char buffer[40] = { 0 };
 
-		err = recv(connectSockets[connectionNr], buffer, 1023, 0);
+		err = recv(connectSockets[connectionNr], buffer, 40, 0);
 
-		if (err == SOCKET_ERROR) {
+		if (err != 0) {
 			{
 				if (debug)
 					cout << "recieving friend IP failed with error: " << WSAGetLastError() << endl;
@@ -305,6 +305,8 @@ public:
 				if (debug) cout << "recieved IP stored: " << buffer;
 				return 0;
 			}
+			else
+				cout << "IP already known!" << endl;
 
 			return 0;
 		}
