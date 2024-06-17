@@ -277,6 +277,7 @@ public:
 		int err = send(connectSockets[connectionNr], message.c_str(), message.length(), 0);
 		if (err == SOCKET_ERROR) {
 			{
+				if (debug)
 				cout << "Sending Friendrequest failed with error: " << WSAGetLastError() << endl;
 				return -1;
 			}
@@ -284,7 +285,7 @@ public:
 
 		}
 
-		char buffer[1024];
+		char buffer[1024] = "";
 
 		err = recv(connectSockets[connectionNr], buffer, 1023, 0);
 
