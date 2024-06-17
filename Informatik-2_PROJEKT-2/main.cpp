@@ -18,6 +18,9 @@ using std::string;
 bool DEBUG_MODE = 1;
 int PORT = 26001;
 
+string IP1 = " 192.168.178.25";
+string IP2 = " 192.168.178.27";
+
 
 //==================================================
 
@@ -34,6 +37,10 @@ int main()
 	{
 		User joiningUser;
 
+		joiningUser.connectIP = IP1;
+		joiningUser.ownIP = IP2;
+		
+
 		joiningUser.create_connectSocket(DEBUG_MODE);
 		joiningUser.connect_(0, DEBUG_MODE);
 
@@ -41,6 +48,8 @@ int main()
 	else
 	{
 		User firstUser;
+
+		firstUser.ownIP = IP1;
 
 		firstUser.bind_(PORT, DEBUG_MODE);
 		firstUser.listen_(20, DEBUG_MODE);
