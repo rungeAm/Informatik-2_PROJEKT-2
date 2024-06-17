@@ -95,12 +95,12 @@ public:
 
 	}
 
-	int bind_(bool debug)
+	int bind_(std::string IP,  bool debug)
 	{
 		sockaddr_in sAddr;
 		sAddr.sin_family = AF_INET;
 		sAddr.sin_port = htons(port);
-		inet_pton(AF_INET, ownIP.c_str(), &sAddr.sin_addr.s_addr);
+		inet_pton(AF_INET, IP.c_str(), &sAddr.sin_addr.s_addr);
 
 		if ((bind(mainSocket, (SOCKADDR*)&sAddr, sizeof(sAddr)) == SOCKET_ERROR))
 		{
