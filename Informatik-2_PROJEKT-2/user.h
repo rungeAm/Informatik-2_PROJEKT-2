@@ -141,6 +141,8 @@ public:
 	{
 		acceptSockets.push_back(accept(mainSocket, NULL, NULL)) ;
 
+		if (debug)cout << "created and stored acceptSocekt! " << endl;
+
 		if (acceptSockets[connectionNr] == INVALID_SOCKET)
 		{
 			if (debug)
@@ -264,6 +266,8 @@ public:
 		if (checkIP(IP) == 0)
 		{
 			IP_Store.push_back(IP);
+			if (debug)
+				cout << "stored IP: " << IP << endl;
 			return 0;
 		}
 		else
