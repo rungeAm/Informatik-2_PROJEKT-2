@@ -293,7 +293,7 @@ public:
 
 		err = recv(connectSockets[connectionNr], buffer, 40, 0);
 
-		if (err != 0) {
+		if (err == 0) {
 			{
 				if (debug)
 					cout << "recieving friend IP failed with error: " << WSAGetLastError() << endl;
