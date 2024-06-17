@@ -295,13 +295,14 @@ public:
 
 		cout << "went thru recv function!" << endl;
 
-		if (err == 0) {
+		if (err == 0) 
 			{
 				if (debug)
 					cout << "recieving friend IP failed with error: " << WSAGetLastError() << endl;
 				return -1;
 			}
-			if (checkIP((string)buffer))
+		else 
+		{ if (checkIP((string)buffer))
 			{
 				IP_Store.push_back(buffer);
 				if (debug) cout << "recieved IP stored: " << buffer;
