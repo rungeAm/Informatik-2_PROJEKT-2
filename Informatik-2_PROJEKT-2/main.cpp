@@ -16,7 +16,7 @@ using  std::cin;
 using std::string;
 
 bool DEBUG_MODE = 1;
-int PORT = 26000;
+int PORT = 26001;
 
 string IP1 = "192.168.178.25";
 string IP2 = "192.168.178.27";
