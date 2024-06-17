@@ -290,8 +290,10 @@ public:
 		
 
 		char buffer[40] = { 0 };
-
+		cout << "createdd buffer " << endl;
 		err = recv(connectSockets[connectionNr], buffer, 40, 0);
+
+		cout << "went thru recv function!" << endl;
 
 		if (err == 0) {
 			{
