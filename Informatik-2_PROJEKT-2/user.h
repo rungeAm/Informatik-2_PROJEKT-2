@@ -219,6 +219,8 @@ public:
 
 	int connect_(std::string IP, int connectionNr, bool debug)
 	{
+		if (debug)
+			cout << endl << "----------enter connect_" << endl;
 		sockaddr_in sAddr;
 		sAddr.sin_family = AF_INET;
 		sAddr.sin_port = htons(port);
@@ -241,6 +243,9 @@ public:
 
 	int sendHandshake(int connectionNr, bool debug)
 	{
+		if (debug)
+			cout << endl << "----------enter sendHandshake" << endl;
+
 		string message = "INFO2 CONNECT/" + floatToString(version);
 		char buffer[1024] = { 0 };
 		bool HandshakeOK = 0;
@@ -292,7 +297,8 @@ public:
 
 	int sendBackconnect(int connectionNr, bool debug)
 	{
-
+		if (debug)
+			cout << endl << "----------enter sendBackconnect" << endl;
 		std::string message = "BACKCONNECT " + ownIP;
 
 		int err = send(connectSockets[connectionNr], message.c_str(), message.length(), 0);
@@ -306,6 +312,8 @@ public:
 
 	int sendFriendrequest(int connectionNr, bool debug)
 	{
+		if (debug)
+			cout << endl << "----------enter sendFriendrequest" << endl;
 		srand(time(NULL));
 
 		std::string message = "FRIEND REQUEST\n\n";
@@ -326,9 +334,11 @@ public:
 
 
 
-		char buffer[40] = { 0 };
+		char buffer[40];
+		memset(buffer, '\0', sizeof(buffer));
+
 		cout << "created buffer " << endl;
-		err = recv(connectSockets[connectionNr], buffer, 40, 0);
+		err = recv(connectSockets[connectionNr], buffer, sizeof(buffer), 0);
 
 		cout << "went thru recv function!" << endl;
 
@@ -358,6 +368,9 @@ public:
 
 	int handleHandshake(int connectionNr, bool debug)
 	{
+		if (debug)
+			cout << endl << "----------enter handleHandshake" << endl;
+
 		char buffer[1024] = { 0 };
 		string recievedMessage = buffer;
 		string handshakeSucces = "INFO2/OK\n\n";
@@ -393,6 +406,9 @@ public:
 
 	int handleBackconnect(int connectionNr, bool debug)
 	{
+
+		if (debug)
+			cout << endl << "----------enter handleBackconnect" << endl;
 		char buffer[1024] = { 0 };
 		std::string IP;
 
@@ -421,6 +437,10 @@ public:
 
 	int handleFriendrequest(int connectionNr, bool debug)
 	{
+
+		if (debug)
+			cout << endl << "----------enter handleFriendrequest" << endl;
+
 		char buffer[1024] = "";
 		std::string IPtoSend = IP_Store[(rand() % IP_Store.size())-1];
 		//std::string IPtoSend = IP_Store[0];
@@ -456,6 +476,8 @@ public:
 
 	int send_recieve(bool send_first, int connectionNr, bool debug)
 	{
+		if (debug)
+			cout << endl << "----------enter send_recieve" << endl;
 		bool logoff = 0;
 		string input = "";
 		string message = "";
@@ -535,6 +557,8 @@ public:
 
 	int checkIP(std::string IP)
 	{
+		if (debug)
+			cout << endl << "			......enter send_recieve" << endl;
 		cout << "checking IP! " << endl;
 		for (int i = 0; i < IP_Store.size(); i++)
 		{
@@ -546,6 +570,9 @@ public:
 
 	int checkID(int ID)
 	{
+	
+			cout << endl << "			......enter send_recieve" << endl;
+		
 
 		for (int i = 0; i < (ID_Store.size() - 1); i++)
 		{
