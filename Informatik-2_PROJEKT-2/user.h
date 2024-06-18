@@ -39,8 +39,8 @@ public:
 	float version;
 	std::string connectIP;
 	std::string ownIP;
-	std::vector<int>ID_Store;
-	std::vector<std::string>IP_Store;
+	std::vector<int>ID_Store = { 000000 };
+	std::vector<std::string>IP_Store = { ownIP };
 
 	int giveIP(std::vector<std::string>& IP_Save)
 	{
@@ -442,7 +442,8 @@ public:
 		if (debug)
 			cout << endl << "----------enter handleFriendrequest" << endl;
 
-		char buffer[1024] = "";
+		char buffer[1024] = { 0 };
+
 		std::string IPtoSend = IP_Store[sizeof(IP_Store) - 1];
 
 
