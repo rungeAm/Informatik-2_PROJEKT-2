@@ -74,7 +74,7 @@ int main()
 		//--------------------------
 		firstUser.User_connect_to_P2P( IP2, IP1, Port, 0, DEBUG_MODE);
 
-		firstUser.User_send_handshake_backconnect_friendrequest_message( 1, IP1, IP2, Port,  0, DEBUG_MODE);
+		firstUser.User_send_handshake_backconnect_friendrequest_message( 1, IP2, IP1, Port,  0, DEBUG_MODE);
 
 		firstUser.send_recieve(0, 0, DEBUG_MODE);
 	}
