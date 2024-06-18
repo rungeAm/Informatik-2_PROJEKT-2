@@ -483,7 +483,11 @@ public:
 			}
 		}
 			
-		
+		else
+		{
+			cout << "didnt recieve FRIEND REQUEST" << endl;
+			return -1;
+		}
 
 
 
