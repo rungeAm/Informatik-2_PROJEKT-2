@@ -320,14 +320,14 @@ public:
 		}
 		else
 		{
-			if (debug)cout << "Sent friend request " << endl;
+			if (debug)cout << "Sent friend request to " << connectIP << endl;
 
 		}
 
 
 
 		char buffer[40] = { 0 };
-		cout << "createdd buffer " << endl;
+		cout << "created buffer " << endl;
 		err = recv(connectSockets[connectionNr], buffer, 40, 0);
 
 		cout << "went thru recv function!" << endl;
@@ -340,6 +340,9 @@ public:
 		}
 		else
 		{
+			std::memset(buffer, '\0', sizeof(buffer));
+
+
 			if (checkIP((string)buffer))
 			{
 				IP_Store.push_back(buffer);
@@ -470,6 +473,7 @@ public:
 				int ID = createMessageID();
 
 				if (checkID(ID) == -1) goto Repeat;
+				ID_Store.push_back(ID);
 
 				std::getline(std::cin >> std::ws, input);
 
