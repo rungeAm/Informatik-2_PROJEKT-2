@@ -458,9 +458,12 @@ public:
 		}
 
 		if (string(buffer) == "FRIEND REQUEST")
+
+		{
 			int err2 = -1;
-		 err2 = send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0);
-		
+
+			err2 = send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0);
+
 			if (err2 == 0)
 			{
 				if (debug)
@@ -478,6 +481,8 @@ public:
 
 				return -1;
 			}
+		}
+			
 		
 
 
