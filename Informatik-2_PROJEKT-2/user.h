@@ -637,7 +637,7 @@ public:
 			cout << "-1 at handleHandshake" << endl;
 			return -1;
 		}
-		handleBackconnect(connectionNr, DEBUG_MODE);
+		fatal_err = handleBackconnect(connectionNr, DEBUG_MODE);
 
 		if (fatal_err == -1)
 		{
@@ -647,7 +647,7 @@ public:
 
 		if (FR)
 		{
-			handleFriendrequest(connectionNr, DEBUG_MODE);
+			fatal_err = handleFriendrequest(connectionNr, DEBUG_MODE);
 			
 		if (fatal_err == -1)
 		{
