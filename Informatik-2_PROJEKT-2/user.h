@@ -584,7 +584,7 @@ public:
 		{
 			handleFriendrequest(connectionNr, DEBUG_MODE);
 		}
-		send_recieve(1, connectionNr, DEBUG_MODE);
+	
 
 
 
@@ -604,7 +604,7 @@ public:
 		{
 			sendFriendrequest(connectionNr, DEBUG_MODE);
 		}
-		send_recieve(1, connectionNr, DEBUG_MODE);
+	
 
 
 
