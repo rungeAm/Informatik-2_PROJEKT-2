@@ -459,8 +459,8 @@ public:
 
 		if (string(buffer) == "FRIEND REQUEST")
 
-			int err = send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0);
-		{
+			err = send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0);
+		
 			if (!err)
 			{
 				if (debug)
@@ -472,7 +472,7 @@ public:
 				cout << "Error sending IP!" << endl;
 				return -1;
 			}
-		}
+		
 
 
 
