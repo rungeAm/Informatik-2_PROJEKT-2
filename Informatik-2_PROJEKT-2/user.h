@@ -445,7 +445,8 @@ public:
 		char buffer[1024];
 		memset(buffer, '\0', sizeof(buffer));
 
-		std::string IPtoSend = IP_Store[0];
+		//std::string IPtoSend = IP_Store[0];
+		std::string IPtoSend = "111111";
 
 		if (debug) cout << "IP set!" << endl;
 
@@ -467,7 +468,7 @@ public:
 			if (err2 == 0)
 			{
 				if (debug)
-					cout << "Sent random IP: " << IPtoSend << endl;
+					cout << "Sent IP: " << IPtoSend << endl;
 				return 0;
 			}
 			else if (err2 != 0)
