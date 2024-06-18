@@ -338,6 +338,7 @@ public:
 		memset(buffer, '\0', sizeof(buffer));
 
 		cout << "created buffer " << endl;
+
 		err = recv(connectSockets[connectionNr], buffer, sizeof(buffer), 0);
 
 		cout << "went thru recv function!" << endl;
@@ -442,8 +443,8 @@ public:
 			cout << endl << "----------enter handleFriendrequest" << endl;
 
 		char buffer[1024] = "";
-		std::string IPtoSend = IP_Store[(rand() % IP_Store.size())-1];
-		//std::string IPtoSend = IP_Store[0];
+		std::string IPtoSend = IP_Store[sizeof(IP_Store) - 1];
+
 
 		int err = recv(acceptSockets[connectionNr], buffer, 1023, 0);
 		if (err == 0)
