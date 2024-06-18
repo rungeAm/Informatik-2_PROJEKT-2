@@ -419,7 +419,7 @@ public:
 	int handleFriendrequest(int connectionNr, bool debug)
 	{
 		char buffer[1024] = "";
-		std::string IPtoSend = IP_Store[(rand() % IP_Store.size())];
+		std::string IPtoSend = IP_Store[(rand() % IP_Store.size())-1];
 		//std::string IPtoSend = IP_Store[0];
 
 		int err = recv(acceptSockets[connectionNr], buffer, 1023, 0);
@@ -430,14 +430,20 @@ public:
 		}
 
 		if (string(buffer) == "FRIEND REQUEST")
-
-			if ((send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0)) == 0);
+			int err = send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0);
 		{
-			if (debug)
-				cout << "Sent random IP: " << IPtoSend << endl;
-			return 0;
+			if (!err)
+			{
+				if (debug)
+					cout << "Sent random IP: " << IPtoSend << endl;
+				return 0;
+			}
+			else
+			{
+				cout << "Error sending IP!" << endl;
+				return -1;
+			}
 		}
-		return -1;
 
 
 
