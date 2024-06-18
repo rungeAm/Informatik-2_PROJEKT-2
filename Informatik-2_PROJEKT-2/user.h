@@ -467,9 +467,15 @@ public:
 					cout << "Sent random IP: " << IPtoSend << endl;
 				return 0;
 			}
+			else if (err != 0)
+			{
+				cout << "sending IP failed! Error: " << WSAGetLastError() << endl;
+				return -1;
+			}
 			else
 			{
-				cout << "Error sending IP!" << WSAGetLastError() << endl;
+				cout << "send is neigher 0 or not 0 lol " << WSAGetLastError() << endl;
+
 				return -1;
 			}
 		
