@@ -22,8 +22,12 @@ int Port = 26005;
 //string IP2 = "192.168.178.27";
 //string IP3 = "192.168.178.24";
 
-string IP1 = "192.168.1.102";
-string IP2 = "192.168.1.105";
+//string IP1 = "192.168.1.102";
+//string IP2 = "192.168.1.105";
+
+
+string IP1 = "192.168.68.114";
+string IP2 = "192.168.68.10";
 
 User firstUser, joiningUser;
 
@@ -57,14 +61,14 @@ int main()
 	{
 	
 
-		firstUser.User_bind_listen_accept(IP1, IP2, Port, 0, DEBUG_MODE);
+		firstUser.User_bind_listen_accept(IP2, IP1, Port, 0, DEBUG_MODE);
 
 		firstUser.User_handle_handshake_backconnect_friendrequest_message(0, IP2, IP1, Port, 0, DEBUG_MODE);
 
 		firstUser.close_acceptSocket_(0, DEBUG_MODE);
 
 		//--------------------------
-		firstUser.User_connect_to_P2P( IP1, IP2, Port, 0, DEBUG_MODE);
+		firstUser.User_connect_to_P2P( IP2, IP1, Port, 0, DEBUG_MODE);
 
 		firstUser.User_send_handshake_backconnect_friendrequest_message( 1, IP1, IP2, Port,  0, DEBUG_MODE);
 	}
