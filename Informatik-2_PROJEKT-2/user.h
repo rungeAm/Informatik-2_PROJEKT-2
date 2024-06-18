@@ -469,7 +469,7 @@ public:
 			}
 			else
 			{
-				cout << "Error sending IP!" << endl;
+				cout << "Error sending IP!" << WSAGetLastError() << endl;
 				return -1;
 			}
 		
