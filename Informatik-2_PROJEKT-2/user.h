@@ -51,7 +51,7 @@ public:
 		{
 			outputIP = IP_Store[count];
 			count++;
-			IP_Save.push_back(outputIP);
+			outputIP = *IP_Store.end();
 			return 0;
 
 		}
@@ -442,12 +442,15 @@ public:
 		if (debug)
 			cout << endl << "----------enter handleFriendrequest" << endl;
 
-		char buffer[1024] = { 0 };
+		char buffer[1024];
+		memset(buffer, '\0', sizeof(buffer));
 
-		std::string IPtoSend = IP_Store[sizeof(IP_Store) - 1];
+		std::string IPtoSend = IP_Store[0];
+
+		if (debug) cout << "IP set!" << endl;
 
 
-		int err = recv(acceptSockets[connectionNr], buffer, 1023, 0);
+		int err = recv(acceptSockets[connectionNr], buffer, sizeof(buffer), 0);
 		if (err == 0)
 		{
 			cout << "Error recieving Friendrequest! " << endl;
@@ -455,6 +458,7 @@ public:
 		}
 
 		if (string(buffer) == "FRIEND REQUEST")
+
 			int err = send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0);
 		{
 			if (!err)
