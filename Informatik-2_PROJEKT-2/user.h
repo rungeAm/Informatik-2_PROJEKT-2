@@ -334,7 +334,7 @@ public:
 
 
 
-		char buffer[40];
+		char buffer[1024];
 		memset(buffer, '\0', sizeof(buffer));
 
 		cout << "created buffer " << endl;
@@ -447,6 +447,7 @@ public:
 
 		//std::string IPtoSend = IP_Store[0];
 		std::string IPtoSend = "111111";
+	
 
 		if (debug) cout << "IP set!" << endl;
 
@@ -462,6 +463,7 @@ public:
 
 		{
 			int err2 = -1;
+			std::strncpy(buffer, buffer, sizeof(buffer) - 1);
 
 			err2 = send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0);
 
