@@ -6,6 +6,7 @@
 #include <ws2tcpip.h> //for InetPton
 #include <sstream>
 #include <thread>
+//#include <any>
 
 
 using  std::endl;
@@ -104,5 +105,26 @@ std::string checkBACKCONNECT(std::string text)
 	else
 		cout << "backconnect error!" << endl;
 }
+
+int createMessageID()
+{
+	srand(time(NULL));
+
+	return (rand() % 99999);
+}
+
+std::string get_message(std::string input)
+{
+	
+	return input.substr(6, 1023);
+
+}
+
+int get_ID(std::string input)
+		
+{
+	return ((int)stringToFloat(input.substr(0, 5)));
+}
+		
 
 

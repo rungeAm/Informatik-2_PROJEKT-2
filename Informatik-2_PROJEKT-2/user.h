@@ -1,5 +1,8 @@
 #pragma once
 
+#define PORT 26005;
+
+
 #include <iostream>
 #include <string>
 #include <winsock2.h>
@@ -8,7 +11,7 @@
 #include <thread>
 #include <vector>
 
-#include "user.h"
+
 #include "peer_functions.h"
 
 
@@ -65,7 +68,7 @@ public:
 	int create_connectSocket(bool debug)
 	{
 		SOCKET connectSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	
+
 
 
 		if (connectSocket == INVALID_SOCKET)
@@ -89,6 +92,12 @@ public:
 
 	}
 
+	int close_connectSocket_(int connectionNr, bool debug)
+	{
+		closesocket(connectSockets[connectionNr]);
+		return 0;
+	}
+
 	int create_mainSocket(bool debug)
 	{
 
@@ -108,7 +117,7 @@ public:
 		{
 			if (debug)
 				cout << "Created TCP-socket successfully!" << endl;
-	
+
 
 			return 0;
 		}
@@ -116,7 +125,13 @@ public:
 
 	}
 
-	int bind_(std::string IP,  bool debug)
+	int close_acceptSocket_(int connectionNr, bool debug)
+	{
+		closesocket(acceptSockets[connectionNr]);
+		return 0;
+	}
+
+	int bind_(std::string IP, bool debug)
 	{
 		sockaddr_in sAddr;
 		sAddr.sin_family = AF_INET;
@@ -142,7 +157,7 @@ public:
 
 	int listen_(int max_connected, bool debug)
 	{
-		if (listen(this->mainSocket, max_connected) == SOCKET_ERROR)			//serverSocket , Amt of max connected servants
+		if (listen(mainSocket, max_connected) == SOCKET_ERROR)			//serverSocket , Amt of max connected servants
 		{
 			if (debug)
 				cout << "Listen failed. Error: " << WSAGetLastError() << endl;
@@ -160,7 +175,7 @@ public:
 
 	int accept_(int connectionNr, bool debug)
 	{
-		acceptSockets.push_back(accept(mainSocket, NULL, NULL)) ;
+		acceptSockets.push_back(accept(mainSocket, NULL, NULL));
 
 		if (debug)cout << "created and stored acceptSocekt! " << endl;
 
@@ -210,8 +225,8 @@ public:
 
 		int sendResult = send(connectSockets[connectionNr], message.c_str(), message.length(), 0);
 		if (sendResult == SOCKET_ERROR) {
-			if(debug)
-			cout << "Send failed with error: " << WSAGetLastError() << endl;
+			if (debug)
+				cout << "Send failed with error: " << WSAGetLastError() << endl;
 		}
 
 
@@ -228,19 +243,19 @@ public:
 
 	int sendSth(int connectionNr, bool debug)
 	{
-		
-			string message =
-				"In einem kleinen Dorf, so still und rein, lebte ein Junge, sein Name war Lajos, so fein.Mit leuchtenden Augen, so klar und hell, war er der Liebling, von nah und fern, so schnell.Er spielte im Wald, mit Tieren vertraut, hörte den Wind, wie er Geschichten laut.Sein Lachen klang wie ein fröhlicher Gesang, der über die Wiesen und Felder erklang.Eines Tages, so strahlend und klar, sah Lajos etwas, das wunderbar war.Ein altes Buch, verstaubt und grau, versteckt im Moos, unter einem Baum, ganz genau.Er öffnete es, seine Finger so zart, die Seiten erzählten von einer fernen Art.Von Rittern und Drachen, von Mut und von List, Lajos war gefangen, in dieser Welt, die ihn küsst.Er träumte von Abenteuern, von Ehre und Ruhm, von Burgen und Schlössern, in der Ferne, im Ruhm.Doch am Abend, wenn die Sonne sank, kehrte er heim, der Mond ihm Dank.In der Stille der Nacht, wenn Sterne glühn, erzählte er Geschichten, von Dingen, die sprühn.Seine Stimme so weich, wie ein sanfter Wind, der von Träumen erzählt, die im Herzen sind.Lajos, der Junge, so klug und weise, lebte im Jetzt, doch reiste auf leise, in Welten der Fantasie, so groß und weit, war er ein Held, zu jeder Zeit.Und so wuchs er auf, Tag für Tag, mit einem Lächeln, das jeder mag.Sein Herz voller Träume, sein Geist voller Mut, Lajos, der Junge, der alles gut tut.";
-				
-			char buffer[1024] = { 0 };
-			bool HandshakeOK = 0;
 
-			int sendResult = send(connectSockets[connectionNr], message.c_str(), message.length(), 0);
-			if (sendResult == SOCKET_ERROR) {
-				if (debug)
-					cout << "Send failed with error: " << WSAGetLastError() << endl;
-			}
-			return 0;
+		string message =
+			"In einem kleinen Dorf, so still und rein, lebte ein Junge, sein Name war Lajos, so fein.Mit leuchtenden Augen, so klar und hell, war er der Liebling, von nah und fern, so schnell.Er spielte im Wald, mit Tieren vertraut, hörte den Wind, wie er Geschichten laut.Sein Lachen klang wie ein fröhlicher Gesang, der über die Wiesen und Felder erklang.Eines Tages, so strahlend und klar, sah Lajos etwas, das wunderbar war.Ein altes Buch, verstaubt und grau, versteckt im Moos, unter einem Baum, ganz genau.Er öffnete es, seine Finger so zart, die Seiten erzählten von einer fernen Art.Von Rittern und Drachen, von Mut und von List, Lajos war gefangen, in dieser Welt, die ihn küsst.Er träumte von Abenteuern, von Ehre und Ruhm, von Burgen und Schlössern, in der Ferne, im Ruhm.Doch am Abend, wenn die Sonne sank, kehrte er heim, der Mond ihm Dank.In der Stille der Nacht, wenn Sterne glühn, erzählte er Geschichten, von Dingen, die sprühn.Seine Stimme so weich, wie ein sanfter Wind, der von Träumen erzählt, die im Herzen sind.Lajos, der Junge, so klug und weise, lebte im Jetzt, doch reiste auf leise, in Welten der Fantasie, so groß und weit, war er ein Held, zu jeder Zeit.Und so wuchs er auf, Tag für Tag, mit einem Lächeln, das jeder mag.Sein Herz voller Träume, sein Geist voller Mut, Lajos, der Junge, der alles gut tut.";
+
+		char buffer[1024] = { 0 };
+		bool HandshakeOK = 0;
+
+		int sendResult = send(connectSockets[connectionNr], message.c_str(), message.length(), 0);
+		if (sendResult == SOCKET_ERROR) {
+			if (debug)
+				cout << "Send failed with error: " << WSAGetLastError() << endl;
+		}
+		return 0;
 	}
 
 	int recieveSth(int connecctionNr, bool debug)
@@ -272,22 +287,22 @@ public:
 		srand(time(NULL));
 
 		std::string message = "FRIEND REQUEST\n\n";
-	
+
 
 		int err = send(connectSockets[connectionNr], message.c_str(), message.length(), 0);
-		if (err == SOCKET_ERROR) 
-			{
-				if (debug)
+		if (err == SOCKET_ERROR)
+		{
+			if (debug)
 				cout << "Sending Friendrequest failed with error: " << WSAGetLastError() << endl;
-				return -1;
-			}
+			return -1;
+		}
 		else
 		{
 			if (debug)cout << "Sent friend request " << endl;
-			
+
 		}
 
-		
+
 
 		char buffer[40] = { 0 };
 		cout << "createdd buffer " << endl;
@@ -295,14 +310,15 @@ public:
 
 		cout << "went thru recv function!" << endl;
 
-		if (err == 0) 
-			{
-				if (debug)
-					cout << "recieving friend IP failed with error: " << WSAGetLastError() << endl;
-				return -1;
-			}
-		else 
-		{ if (checkIP((string)buffer))
+		if (err == 0)
+		{
+			if (debug)
+				cout << "recieving friend IP failed with error: " << WSAGetLastError() << endl;
+			return -1;
+		}
+		else
+		{
+			if (checkIP((string)buffer))
 			{
 				IP_Store.push_back(buffer);
 				if (debug) cout << "recieved IP stored: " << buffer;
@@ -316,110 +332,260 @@ public:
 	}
 
 	int handleHandshake(int connectionNr, bool debug)
+	{
+		char buffer[1024] = { 0 };
+		string recievedMessage = buffer;
+		string handshakeSucces = "INFO2/OK\n\n";
+
+		int recvErr = recv(acceptSockets[connectionNr], buffer, 1023, 0);
+		if (recvErr == SOCKET_ERROR)
 		{
-			char buffer[1024] = { 0 };
-			string recievedMessage = buffer;
-			string handshakeSucces = "INFO2/OK\n\n";
-
-			int recvErr = recv(acceptSockets[connectionNr], buffer, 1023, 0);
-			if (recvErr == SOCKET_ERROR)
-			{
-				if (debug)
-					cout << "recieve error: " << WSAGetLastError();
-				closesocket(acceptSockets[connectionNr]);
-				WSACleanup();
-			}
-			else
-			{
-				if (debug)
-					cout << "Message sent: " << buffer << endl;
-			}
-
-
-			if (check_INFO2CONNECT(buffer, 0.7))
-			{
-				cout << "Handshake begin!" << endl;
-				int sendResult = send(acceptSockets[connectionNr], handshakeSucces.c_str(), handshakeSucces.length(), 0);
-				return 0;
-			}
-			else
-			{
-				cout << "Handshake fail!" << endl;
-				return 1;
-			}
-
+			if (debug)
+				cout << "recieve error: " << WSAGetLastError();
+			closesocket(acceptSockets[connectionNr]);
+			WSACleanup();
 		}
+		else
+		{
+			if (debug)
+				cout << "Message sent: " << buffer << endl;
+		}
+
+
+		if (check_INFO2CONNECT(buffer, 0.7))
+		{
+			cout << "Handshake begin!" << endl;
+			int sendResult = send(acceptSockets[connectionNr], handshakeSucces.c_str(), handshakeSucces.length(), 0);
+			return 0;
+		}
+		else
+		{
+			cout << "Handshake fail!" << endl;
+			return 1;
+		}
+
+	}
 
 	int handleBackconnect(int connectionNr, bool debug)
+	{
+		char buffer[1024] = "";
+		std::string IP;
+
+		int err = recv(acceptSockets[connectionNr], buffer, 1023, 0);
+		if (err == 0)
 		{
-			char buffer[1024] = "";
-			std::string IP;
-			
-			int err =  recv(acceptSockets[connectionNr], buffer, 1023, 0);
-			if (err == 0)
-			{
-				if (debug)
+			if (debug)
 				cout << "backconnect failed! " << endl;
-				return -1;
-			}
-
-			IP = checkBACKCONNECT((string)buffer);
-
-
-			if (checkIP(IP) == 0)
-			{
-				IP_Store.push_back(IP);
-				if (debug)
-					cout << "stored IP: " << IP << endl;
-				return 0;
-			}
-			else
-				cout << "Couldnt store IP!" << endl;
-
+			return -1;
 		}
 
-	int handleFriendrequest(int connectionNr, bool debug)
-		{
-			char buffer[1024] = "";
-			//std::string IPtoSend = IP_Store[(rand() % IP_Store.size())-1];
-			std::string IPtoSend = IP_Store[0];
+		IP = checkBACKCONNECT((string)buffer);
 
-		int err = 	recv(acceptSockets[connectionNr], buffer, 1023, 0);
+
+		if (checkIP(IP) == 0)
+		{
+			IP_Store.push_back(IP);
+			if (debug)
+				cout << "stored IP: " << IP << endl;
+			return 0;
+		}
+		else
+			cout << "Couldnt store IP!" << endl;
+
+	}
+
+	int handleFriendrequest(int connectionNr, bool debug)
+	{
+		char buffer[1024] = "";
+		std::string IPtoSend = IP_Store[(rand() % IP_Store.size())];
+		//std::string IPtoSend = IP_Store[0];
+
+		int err = recv(acceptSockets[connectionNr], buffer, 1023, 0);
 		if (err == 0)
 		{
 			cout << "Error recieving Friendrequest! " << endl;
 			return -1;
 		}
 
-			if (string(buffer) == "FRIEND REQUEST")
+		if (string(buffer) == "FRIEND REQUEST")
 
-				if ((send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0)) == 0);
-			{
-				if (debug)
-					cout << "Sent random IP: " << IPtoSend << endl;
-				return 0;
-			}
-				 return -1;
-
-
-			
-
-
-		}
-
-	int checkIP(std::string IP)
+			if ((send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0)) == 0);
 		{
-			for (int i = 0; i < IP_Store.size(); i++)
-			{
-				if (IP == IP_Store[i]) return -1;
-
-			}
+			if (debug)
+				cout << "Sent random IP: " << IPtoSend << endl;
 			return 0;
 		}
+		return -1;
 
 
 
 
-	
+
+	}
+
+	int send_recieve(bool send_first, int connectionNr, bool debug)
+	{
+		bool logoff = 0;
+		string input = "";
+		string message = "";
+		char buffer[1024] = { 0 };
+		int err = 0;
+
+		while (!logoff)
+		{
+			message.clear();
+
+			if (send_first)
+			{
+
+			Repeat:
+				int ID = createMessageID();
+
+				if (checkID(ID) == -1) goto Repeat;
+
+				std::getline(std::cin >> std::ws, input);
+
+				message.append(floatToString((float)ID));
+				message.append(" ");
+				message.append(input);
+
+				err = send(acceptSockets[connectionNr], message.c_str(), message.size(), 0);
+
+				if (err != 0)
+				{
+					{
+						cout << "Error sending message! " << endl;
+					}
+				}
+
+				if (message == "/disconnect")
+				{
+					cout << ownIP << " disconnected! ";
+					return 0;
+
+				}
+			}
+			send_first = 1;
+
+			err = recv(acceptSockets[connectionNr], buffer, 1023, 0);
+
+			if (err != 0)
+			{
+
+				cout << "Error sending message! " << endl;
+
+			}
+
+			if (!(checkID(get_ID((std::string)buffer))))
+			{
+				err = send(acceptSockets[connectionNr], (get_message((string)buffer)).c_str(), 1023, 0);
+			}
+
+			cout << get_message((string)buffer) << endl;
+
+
+
+
+		}
+
+
+	}
+
+	int checkIP(std::string IP)
+	{
+		for (int i = 0; i < IP_Store.size(); i++)
+		{
+			if (IP == IP_Store[i]) return -1;
+
+		}
+		return 0;
+	}
+
+	int checkID(int ID)
+	{
+
+		for (int i = 0; i < (ID_Store.size() - 1); i++)
+		{
+			if (ID == ID_Store[i])
+				return -1;
+		}
+		return 0;
+
+	}
+
+	int User_connect_to_P2P(std::string ownIP, std::string connectIP, int port, int connectionNr, bool DEBUG_MODE)
+	{
+
+
+		connectIP = connectIP;
+		ownIP = ownIP;
+		port = PORT;
+
+
+		create_connectSocket(DEBUG_MODE);
+		connect_(connectIP, connectionNr, DEBUG_MODE);
+
+
+
+
+
+		return 0;
+
+	}
+
+	int User_bind_listen_accept(std::string ownIP, std::string connectIP, int port, int connectionNr, bool DEBUG_MODE)
+	{
+
+		create_mainSocket(DEBUG_MODE);
+
+		bind_(ownIP, DEBUG_MODE);
+		listen_(20, DEBUG_MODE);
+		accept_(connectionNr, DEBUG_MODE);
+
+
+		return 0;
+
+
+	}
+
+	int User_handle_handshake_backconnect_friendrequest_message(bool FR, std::string ownIP, std::string connectIP, int port, int connectionNr, bool DEBUG_MODE)
+	{
+
+		handleHandshake(connectionNr, DEBUG_MODE);
+		handleBackconnect(connectionNr, DEBUG_MODE);
+
+		if (FR)
+		{
+			handleFriendrequest(connectionNr, DEBUG_MODE);
+		}
+		send_recieve(1, connectionNr, DEBUG_MODE);
+
+
+
+		//send&recieve
+
+		return 0;
+
+	}
+
+	int User_send_handshake_backconnect_friendrequest_message(bool FR, std::string ownIP, std::string connectIP, int port, int connectionNr, bool DEBUG_MODE)
+	{
+
+		sendHandshake(connectionNr, DEBUG_MODE);
+		sendBackconnect(connectionNr, DEBUG_MODE);
+
+		if (FR)
+		{
+			sendFriendrequest(connectionNr, DEBUG_MODE);
+		}
+		send_recieve(1, connectionNr, DEBUG_MODE);
+
+
+
+		return 0;
+
+	}
 
 };
+
+

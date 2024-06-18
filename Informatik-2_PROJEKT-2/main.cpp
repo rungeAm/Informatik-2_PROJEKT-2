@@ -6,8 +6,8 @@
 #include <thread>
 #include <vector>
 #include "user.h"
-#include "user.h"
 #include "peer_functions.h"
+
 
 
 using  std::endl;
@@ -16,7 +16,7 @@ using  std::cin;
 using std::string;
 
 bool DEBUG_MODE = 1;
-int PORT = 26005;
+int Port = 26005;
 
 //string IP1 = "192.168.178.25";
 //string IP2 = "192.168.178.27";
@@ -25,81 +25,48 @@ int PORT = 26005;
 string IP1 = "192.168.1.102";
 string IP2 = "192.168.1.105";
 
+User firstUser, joiningUser;
+
 
 //==================================================
 
 int main()
 {
 	WSACleanup();
-	bool firstUser = 0;
+	bool firstUserC = 0;
 
 	start_(DEBUG_MODE);
 
 	cout << "First User? " << endl;
-	cin >> firstUser;
-	if (!firstUser)
+	cin >> firstUserC;
+	if (!firstUserC)
 	{
-		User joiningUser;
+	    joiningUser.User_connect_to_P2P( IP1, IP2, Port, 0, DEBUG_MODE);
 
-		joiningUser.connectIP = IP2;
-		joiningUser.ownIP = IP1;
-		joiningUser.port = PORT;
-		
+		joiningUser.User_send_handshake_backconnect_friendrequest_message( 0, IP1, IP2, Port, 0, DEBUG_MODE);
 
-		joiningUser.create_connectSocket(DEBUG_MODE);
-		joiningUser.connect_(joiningUser.connectIP, 0, DEBUG_MODE);
+		joiningUser.close_connectSocket_(0, DEBUG_MODE);
 
-	//	joiningUser.sendSth(0, DEBUG_MODE);
-		joiningUser.sendHandshake(0, DEBUG_MODE);
-		joiningUser.sendBackconnect(0, DEBUG_MODE);
+		joiningUser.User_bind_listen_accept( IP1, IP2, Port, 0, DEBUG_MODE);
 
-
-
-
-		//---------------------------------
-
-		cout << endl << "switching from send to recieve!" << endl << endl;
-
-		joiningUser.create_mainSocket(DEBUG_MODE);
-
-		joiningUser.bind_(joiningUser.ownIP, DEBUG_MODE);
-		joiningUser.listen_(20, DEBUG_MODE);
-		joiningUser.accept_(0, DEBUG_MODE);
-
-		joiningUser.handleHandshake(0, DEBUG_MODE);
-		joiningUser.handleBackconnect(0, DEBUG_MODE);
-		joiningUser.handleFriendrequest(0, DEBUG_MODE);
-
+		joiningUser.User_handle_handshake_backconnect_friendrequest_message( 1, IP1, IP2, Port, 0, DEBUG_MODE);
 
 
 	}
 	else
 	{
-		User firstUser;
+	
 
-		firstUser.ownIP = IP2;
-		firstUser.port = PORT;
+		firstUser.User_bind_listen_accept(IP1, IP2, Port, 0, DEBUG_MODE);
 
-		firstUser.create_mainSocket(DEBUG_MODE);
+		firstUser.User_handle_handshake_backconnect_friendrequest_message(0, IP2, IP1, Port, 0, DEBUG_MODE);
 
-		firstUser.bind_(firstUser.ownIP, DEBUG_MODE);
-		firstUser.listen_(20, DEBUG_MODE);
-		firstUser.accept_(0, DEBUG_MODE);
-
-		firstUser.handleHandshake(0, DEBUG_MODE); 
-		firstUser.handleBackconnect(0, DEBUG_MODE);
+		firstUser.close_acceptSocket_(0, DEBUG_MODE);
 
 		//--------------------------
+		firstUser.User_connect_to_P2P( IP1, IP2, Port, 0, DEBUG_MODE);
 
-		cout << "Switching from recieve to send! " << endl << endl;
-		 
-
-		firstUser.create_connectSocket(DEBUG_MODE);
-		firstUser.connect_(firstUser.IP_Store[0], 0, DEBUG_MODE);
-
-		firstUser.sendHandshake(0, DEBUG_MODE);
-		firstUser.sendBackconnect(0, DEBUG_MODE);
-		firstUser.sendFriendrequest(0, DEBUG_MODE);
+		firstUser.User_send_handshake_backconnect_friendrequest_message( 1, IP1, IP2, Port,  0, DEBUG_MODE);
 	}
 	
 	return 0;
