@@ -458,16 +458,16 @@ public:
 		}
 
 		if (string(buffer) == "FRIEND REQUEST")
-
-			err = send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0);
+			int err2 = -1;
+		 err2 = send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0);
 		
-			if (err == 0)
+			if (err2 == 0)
 			{
 				if (debug)
 					cout << "Sent random IP: " << IPtoSend << endl;
 				return 0;
 			}
-			else if (err != 0)
+			else if (err2 != 0)
 			{
 				cout << "sending IP failed! Error: " << WSAGetLastError() << endl;
 				return -1;
