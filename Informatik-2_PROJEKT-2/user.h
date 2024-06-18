@@ -557,7 +557,7 @@ public:
 
 	int checkIP(std::string IP)
 	{
-		if (debug)
+		
 			cout << endl << "			......enter send_recieve" << endl;
 		cout << "checking IP! " << endl;
 		for (int i = 0; i < IP_Store.size(); i++)
