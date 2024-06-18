@@ -318,9 +318,9 @@ public:
 
 		std::string message = "FRIEND REQUEST\n\n";
 
-
-		int err = send(connectSockets[connectionNr], message.c_str(), message.length(), 0);
-		if (err == SOCKET_ERROR)
+		int err = 0;
+		err = send(connectSockets[connectionNr], message.c_str(), message.length(), 0);
+		if (err == 0)
 		{
 			if (debug)
 				cout << "Sending Friendrequest failed with error: " << WSAGetLastError() << endl;
