@@ -463,7 +463,7 @@ public:
 
 		{
 			int err2 = -1;
-			std::strncpy(buffer, buffer, sizeof(buffer) - 1);
+			std::strncpy_s(buffer, buffer, sizeof(buffer) - 1);
 
 			err2 = send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0);
 
