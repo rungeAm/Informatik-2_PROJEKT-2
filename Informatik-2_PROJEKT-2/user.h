@@ -316,7 +316,7 @@ public:
 			cout << endl << "----------enter sendFriendrequest" << endl;
 		srand(time(NULL));
 
-		std::string message = "FRIEND REQUEST\n\n";
+		std::string message = "FRIEND REQUEST";
 
 		int err = 0;
 		err = send(connectSockets[connectionNr], message.c_str(), message.length(), 0);
