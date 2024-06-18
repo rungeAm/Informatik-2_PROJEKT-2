@@ -461,7 +461,7 @@ public:
 
 			err = send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0);
 		
-			if (!err)
+			if (err == 0)
 			{
 				if (debug)
 					cout << "Sent random IP: " << IPtoSend << endl;
