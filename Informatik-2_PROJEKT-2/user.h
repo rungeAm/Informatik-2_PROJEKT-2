@@ -493,7 +493,7 @@ public:
 
 	int checkIP(std::string IP)
 	{
-		for (int i = 0; i < IP_Store.size(); i++)
+		for (int i = 0; i < IP_Store.size()-1; i++)
 		{
 			if (IP == IP_Store[i]) return -1;
 
