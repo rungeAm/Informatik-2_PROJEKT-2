@@ -18,16 +18,18 @@ using std::string;
 bool DEBUG_MODE = 1;
 int Port = 26005;
 
+//LajosROUTER
 //string IP1 = "192.168.178.25";
 //string IP2 = "192.168.178.27";
 //string IP3 = "192.168.178.24";
 
-//string IP1 = "192.168.1.102";
-//string IP2 = "192.168.1.105";
+//HOME
+string IP1 = "192.168.1.102";
+string IP2 = "192.168.1.105";
 
-
-string IP1 = "192.168.68.114";
-string IP2 = "192.168.68.10";
+//PHONE
+//string IP1 = "192.168.68.114";
+//string IP2 = "192.168.68.10";
 
 User firstUser, joiningUser;
 
