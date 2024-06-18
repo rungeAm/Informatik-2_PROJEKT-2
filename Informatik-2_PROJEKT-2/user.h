@@ -517,9 +517,9 @@ public:
 	{
 
 
-		connectIP = connectIP;
-		ownIP = ownIP;
-		port = PORT;
+		this->connectIP = connectIP;
+		this->ownIP = ownIP;
+		this->port = port;
 
 
 		create_connectSocket(DEBUG_MODE);
@@ -535,6 +535,9 @@ public:
 
 	int User_bind_listen_accept(std::string ownIP, std::string connectIP, int port, int connectionNr, bool DEBUG_MODE)
 	{
+		this->ownIP = ownIP;
+		this->connectIP = connectIP;
+		this->port = port;
 
 		create_mainSocket(DEBUG_MODE);
 
