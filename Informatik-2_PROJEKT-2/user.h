@@ -473,7 +473,15 @@ public:
 				int ID = createMessageID();
 
 				if (checkID(ID) == -1) goto Repeat;
-				ID_Store.push_back(ID);
+				this->ID_Store.push_back(ID);
+
+				if (ID != (*ID_Store.end()))
+				{
+					if (debug) cout << "Error stroring ID!";
+					return -1;
+				}
+				
+				cout << "Enter message: ";
 
 				std::getline(std::cin >> std::ws, input);
 
@@ -489,6 +497,8 @@ public:
 						cout << "Error sending message! " << endl;
 					}
 				}
+				else
+				{ }
 
 				if (message == "/disconnect")
 				{
@@ -586,13 +596,32 @@ public:
 
 	int User_handle_handshake_backconnect_friendrequest_message(bool FR, std::string ownIP, std::string connectIP, int port, int connectionNr, bool DEBUG_MODE)
 	{
+		int fatal_err = 0;
 
-		handleHandshake(connectionNr, DEBUG_MODE);
+		fatal_err = handleHandshake(connectionNr, DEBUG_MODE);
+		if (fatal_err == -1)
+		{
+			cout << "-1 at handleHandshake" << endl;
+			return -1;
+		}
 		handleBackconnect(connectionNr, DEBUG_MODE);
+
+		if (fatal_err == -1)
+		{
+			cout << "-1 at handleBackconnect" << endl;
+			return -1;
+		}
 
 		if (FR)
 		{
 			handleFriendrequest(connectionNr, DEBUG_MODE);
+			
+		if (fatal_err == -1)
+		{
+			cout << "-1 at handleFriendrequest" << endl;
+			return -1;
+		}
+
 		}
 	
 
@@ -606,13 +635,29 @@ public:
 
 	int User_send_handshake_backconnect_friendrequest_message(bool FR, std::string ownIP, std::string connectIP, int port, int connectionNr, bool DEBUG_MODE)
 	{
+		int fatal_err = 0;
 
 		sendHandshake(connectionNr, DEBUG_MODE);
+			if (fatal_err == -1)
+			{
+				cout << "-1 at sendHandshake" << endl;
+				return -1;
+			}
 		sendBackconnect(connectionNr, DEBUG_MODE);
+		if (fatal_err == -1)
+		{
+			cout << "-1 at sendBackconnect" << endl;
+			return -1;
+		}
 
 		if (FR)
 		{
 			sendFriendrequest(connectionNr, DEBUG_MODE);
+			if (fatal_err == -1)
+			{
+				cout << "-1 at sendFriendrequest" << endl;
+				return -1;
+			}
 		}
 	
 

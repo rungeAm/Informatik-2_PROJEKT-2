@@ -40,6 +40,7 @@ int main()
 {
 	WSACleanup();
 	bool firstUserC = 0;
+	int fatal_err = 0;
 
 	start_(DEBUG_MODE);
 
@@ -47,17 +48,25 @@ int main()
 	cin >> firstUserC;
 	if (!firstUserC)
 	{
-	    joiningUser.User_connect_to_P2P( IP1, IP2, Port, 0, DEBUG_MODE);
+	
 
-		joiningUser.User_send_handshake_backconnect_friendrequest_message( 0, IP1, IP2, Port, 0, DEBUG_MODE);
+	  fatal_err =  joiningUser.User_connect_to_P2P( IP1, IP2, Port, 0, DEBUG_MODE);
+	  if (fatal_err == -1) return 0;
 
-		joiningUser.close_connectSocket_(0, DEBUG_MODE);
+	  fatal_err = joiningUser.User_send_handshake_backconnect_friendrequest_message( 0, IP1, IP2, Port, 0, DEBUG_MODE);
+	  if (fatal_err == -1) return 0;
 
-		joiningUser.User_bind_listen_accept( IP1, IP2, Port, 0, DEBUG_MODE);
+	  fatal_err = joiningUser.close_connectSocket_(0, DEBUG_MODE);
+	  if (fatal_err == -1) return 0;
 
-		joiningUser.User_handle_handshake_backconnect_friendrequest_message( 1, IP1, IP2, Port, 0, DEBUG_MODE);
+	  fatal_err = joiningUser.User_bind_listen_accept( IP1, IP2, Port, 0, DEBUG_MODE);
+	  if (fatal_err == -1) return 0;
 
-		joiningUser.send_recieve(1, 0, DEBUG_MODE);
+	  fatal_err = joiningUser.User_handle_handshake_backconnect_friendrequest_message( 1, IP1, IP2, Port, 0, DEBUG_MODE);
+	  if (fatal_err == -1) return 0;
+
+	  fatal_err = joiningUser.send_recieve(1, 0, DEBUG_MODE);
+	  if (fatal_err == -1) return 0;
 
 
 	}
@@ -65,19 +74,24 @@ int main()
 	{
 	
 
-		firstUser.User_bind_listen_accept(IP2, IP1, Port, 0, DEBUG_MODE);
+		fatal_err = firstUser.User_bind_listen_accept(IP2, IP1, Port, 0, DEBUG_MODE);
+		if (fatal_err == -1) return 0;
 
-		firstUser.User_handle_handshake_backconnect_friendrequest_message(0, IP2, IP1, Port, 0, DEBUG_MODE);
+		fatal_err = firstUser.User_handle_handshake_backconnect_friendrequest_message(0, IP2, IP1, Port, 0, DEBUG_MODE);
+		if (fatal_err == -1) return 0;
 
-		firstUser.close_acceptSocket_(0, DEBUG_MODE);
+		fatal_err = firstUser.close_acceptSocket_(0, DEBUG_MODE);
+		if (fatal_err == -1) return 0;
 
 		//--------------------------
-		firstUser.User_connect_to_P2P( IP2, IP1, Port, 0, DEBUG_MODE);
+		fatal_err = firstUser.User_connect_to_P2P( IP2, IP1, Port, 0, DEBUG_MODE);
+		if (fatal_err == -1) return 0;
 
-		firstUser.User_send_handshake_backconnect_friendrequest_message( 1, IP2, IP1, Port,  0, DEBUG_MODE);
+		fatal_err = firstUser.User_send_handshake_backconnect_friendrequest_message( 1, IP2, IP1, Port,  0, DEBUG_MODE);
+		if (fatal_err == -1) return 0;
 
-		firstUser.send_recieve(0, 0, DEBUG_MODE);
-	}
+		fatal_err = firstUser.send_recieve(0, 0, DEBUG_MODE);
+	}  if (fatal_err == -1) return 0;
 	
 	return 0;
 }
