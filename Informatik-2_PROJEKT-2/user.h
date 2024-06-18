@@ -83,7 +83,15 @@ public:
 		{
 			if (debug)
 				cout << "Created TCP-socket successfully!" << endl;
-			this->connectSockets.push_back(connectSocket);
+			connectSockets.push_back(connectSocket);
+
+			if (connectSocket != connectSockets.back())
+			{
+				if (debug) cout << "Error storing connectSocket! " << endl;
+				return -1;
+			}
+			else
+				if (debug) cout << "stored connectSocket! " << endl;
 
 			return 0;
 		}
@@ -101,11 +109,11 @@ public:
 	int create_mainSocket(bool debug)
 	{
 
-		this->mainSocket = INVALID_SOCKET;
-		this->mainSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+		mainSocket = INVALID_SOCKET;
+		mainSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 
-		if (this->mainSocket == INVALID_SOCKET)
+		if (mainSocket == INVALID_SOCKET)
 		{
 			if (debug)
 				std::cout << "Error creating TCP-socket! " << endl;
@@ -175,11 +183,9 @@ public:
 
 	int accept_(int connectionNr, bool debug)
 	{
-		acceptSockets.push_back(accept(mainSocket, NULL, NULL));
+		SOCKET aSock = accept(mainSocket, NULL, NULL);
 
-		if (debug)cout << "created and stored acceptSocekt! " << endl;
-
-		if (acceptSockets[connectionNr] == INVALID_SOCKET)
+		if (aSock == INVALID_SOCKET)
 		{
 			if (debug)
 				cout << "Accept failed, Error: " << WSAGetLastError() << endl;
@@ -187,6 +193,22 @@ public:
 			WSACleanup();
 			return -1;
 		}
+
+
+		acceptSockets.push_back(aSock);
+
+		if (aSock == acceptSockets.back())
+		{
+
+			if (debug)cout << "created and stored acceptSocekt! " << endl;
+			else
+			{
+				if (debug) cout << "Error storing acceptsocket!" << endl;
+					return -1;
+			}
+		}
+
+		
 		else
 		{
 			if (debug)
@@ -273,8 +295,8 @@ public:
 
 		std::string message = "BACKCONNECT " + ownIP;
 
-		int sendResult = send(connectSockets[connectionNr], message.c_str(), message.length(), 0);
-		if (sendResult == SOCKET_ERROR) {
+		int err = send(connectSockets[connectionNr], message.c_str(), message.length(), 0);
+		if (err == 0) {
 			cout << "Backconnect failed with error: " << WSAGetLastError() << endl;
 
 
@@ -368,7 +390,7 @@ public:
 
 	int handleBackconnect(int connectionNr, bool debug)
 	{
-		char buffer[1024] = "";
+		char buffer[1024] = { 0 };
 		std::string IP;
 
 		int err = recv(acceptSockets[connectionNr], buffer, 1023, 0);
@@ -493,7 +515,8 @@ public:
 
 	int checkIP(std::string IP)
 	{
-		for (int i = 0; i < IP_Store.size()-1; i++)
+		cout << "checking IP! " << endl;
+		for (int i = 0; i < IP_Store.size(); i++)
 		{
 			if (IP == IP_Store[i]) return -1;
 
