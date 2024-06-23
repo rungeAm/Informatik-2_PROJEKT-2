@@ -448,7 +448,7 @@ public:
 		memset(buffer, '\0', sizeof(buffer));
 
 		//std::string IPtoSend = IP_Store[0];
-		const char* IPtoSend = "111111";
+		string IPtoSend = "111111";
 	
 
 		if (debug) cout << "IP set!" << endl;
@@ -461,13 +461,13 @@ public:
 			return -1;
 		}
 
-		if (buffer) == "FRIEND REQUEST")
+		if ((buffer) == "FRIEND REQUEST")
 
 		{
 			int err2 = -1;
-			errno_t strncpy_s(*buffer, sizeof(buffer), IPtoSend, 1025);
+		
 
-			err2 = send(acceptSockets[connectionNr], IPtoSend, strlen(IPtoSend), 0);
+			err2 = send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0);
 
 			if (err2 == 0)
 			{
