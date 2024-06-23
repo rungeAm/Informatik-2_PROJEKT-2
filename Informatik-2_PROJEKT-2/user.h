@@ -564,6 +564,7 @@ public:
 						return -1;
 					}
 				}
+				else cout << "sent message: " << message << endl << endl;
 			
 
 				if (message == "/disconnect")
@@ -588,7 +589,7 @@ public:
 				{
 					
 					if (err == SOCKET_ERROR) {if(debug) cout << "SOCKET ERROR at recieve: " << WSAGetLastError() << endl; }
-					err = send(acceptSockets[connectionNr], (get_message((string)buffer2)).c_str(), 1023, 0);
+					
 				}
 				else
 				{
