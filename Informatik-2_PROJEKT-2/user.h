@@ -509,19 +509,21 @@ public:
 			cout << endl << "----------enter send_recieve" << endl;
 		static bool logoff = 0;
 		static string input;
-		input.empty();
+		input.clear();
 		static string message;
-		message.empty();
+		message.clear();
 
 		char buffer[1024] = { 0 };
 		int err = 0;
 		int ID;
 
 	
-			message.clear();
+		
 
 			if (send_first)
 			{
+				message.clear();
+				message.clear();
 				cout << "sending first!" << endl;
 			Repeat:
 				ID = createMessageID();
@@ -567,6 +569,9 @@ public:
 			}
 
 			else if (!send_first) {
+
+				message.clear();
+				message.clear();
 
 				err = recv(acceptSockets[connectionNr], buffer, 1023, 0);
 
