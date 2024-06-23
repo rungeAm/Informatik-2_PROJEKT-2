@@ -589,6 +589,10 @@ public:
 				{
 					err = send(acceptSockets[connectionNr], (get_message((string)buffer)).c_str(), 1023, 0);
 				}
+				else
+				{
+					cout << "unknown IP!!: " << get_ID((std::string)buffer);
+				}
 
 				cout << "Message recieved: "  << get_message((string)buffer) << endl;
 

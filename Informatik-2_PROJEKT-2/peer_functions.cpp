@@ -110,7 +110,7 @@ int createMessageID()
 {
 	srand(time(NULL));
 
-	return (rand() % 99999);
+	return (rand() % 999999);
 }
 
 std::string get_message(std::string input)
