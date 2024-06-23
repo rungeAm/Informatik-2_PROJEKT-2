@@ -4,12 +4,14 @@
 
 
 #include <iostream>
+ #include<cstring>
 #include <string>
 #include <winsock2.h>
 #include <ws2tcpip.h> //for InetPton
 #include <sstream>
 #include <thread>
 #include <vector>
+#include<stddef.h>
 
 
 #include "peer_functions.h"
@@ -446,7 +448,7 @@ public:
 		memset(buffer, '\0', sizeof(buffer));
 
 		//std::string IPtoSend = IP_Store[0];
-		std::string IPtoSend = "111111";
+		const char* IPtoSend = "111111";
 	
 
 		if (debug) cout << "IP set!" << endl;
@@ -459,13 +461,13 @@ public:
 			return -1;
 		}
 
-		if (string(buffer) == "FRIEND REQUEST")
+		if (buffer) == "FRIEND REQUEST")
 
 		{
 			int err2 = -1;
-			std::strncpy_s(buffer, buffer, sizeof(buffer) - 1);
+			errno_t strncpy_s(*buffer, sizeof(buffer), IPtoSend, 1025);
 
-			err2 = send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0);
+			err2 = send(acceptSockets[connectionNr], IPtoSend, strlen(IPtoSend), 0);
 
 			if (err2 == 0)
 			{
