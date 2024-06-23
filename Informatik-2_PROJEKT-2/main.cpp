@@ -121,7 +121,7 @@ int main()
 	else
 	{
 		std::thread myThread([&]() {
-			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 0, DEBUG_MODE);
+			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, firstUser.IP_Store[0], Port, 0, DEBUG_MODE);
 			if (fatal_err == -1) {
 				std::cout << "Error in User_bind_listen_accept!" << std::endl;
 			
