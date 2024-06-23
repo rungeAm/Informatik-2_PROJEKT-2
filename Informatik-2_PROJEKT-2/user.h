@@ -570,10 +570,10 @@ public:
 
 				err = recv(acceptSockets[connectionNr], buffer, 1023, 0);
 
-				if (err != 0)
+				if (err == 0)
 				{
 
-					cout << "Error sending message! " << endl;
+					cout << "Error recieving message! " << endl;
 
 				}
 
