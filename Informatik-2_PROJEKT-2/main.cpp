@@ -138,7 +138,10 @@ int main()
 
 
 
-	  myThread.join();
+	  myThread1.join();
+	  myThread2.join();
+	  myThread3.join();
+	  myThread4.join();
 
 	  fatal_err = joiningUser.User_handle_handshake_backconnect_friendrequest_message( 1, OWNIP, CONNECTIP, Port, 0, DEBUG_MODE);
 	  if (fatal_err == -1) return 0;
@@ -183,7 +186,10 @@ int main()
 			});
 
 
-		myThread.join();
+		myThread1.join();
+		myThread2.join();
+		myThread3.join();
+		myThread4.join();
 
 		//fatal_err = firstUser.User_bind_listen_accept(IP2, IP1, Port, 0, DEBUG_MODE);
 		//if (fatal_err == -1) return 0;
