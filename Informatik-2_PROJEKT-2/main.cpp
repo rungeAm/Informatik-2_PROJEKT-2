@@ -30,6 +30,7 @@ int Port = 26005;
 //PHONE
 string IP1 = "192.168.233.114";
 string IP2 = "192.168.233.10";
+string IP3 = "192.168.233.232";
 
 User firstUser, joiningUser;
 
@@ -38,11 +39,19 @@ User firstUser, joiningUser;
 
 int main()
 {
+	string OWNIP;
+	string CONNECTIP;
+
 	WSACleanup();
 	bool firstUserC = 0;
 	int fatal_err = 0;
 
 	start_(DEBUG_MODE);
+	cout << "enter own IP: ";
+	cin >> OWNIP;
+
+	cout << "enter connect IP!";
+	cin >> CONNECTIP;
 
 	cout << "First User? " << endl;
 	cin >> firstUserC;
@@ -50,17 +59,17 @@ int main()
 	{
 	
 
-	  fatal_err =  joiningUser.User_connect_to_P2P( IP1, IP2, Port, 0, DEBUG_MODE);
+	  fatal_err =  joiningUser.User_connect_to_P2P(OWNIP, CONNECTIP, Port, 0, DEBUG_MODE);
 	  if (fatal_err == -1) return 0;
 
-	  fatal_err = joiningUser.User_send_handshake_backconnect_friendrequest_message( 0, IP1, IP2, Port, 0, DEBUG_MODE);
+	  fatal_err = joiningUser.User_send_handshake_backconnect_friendrequest_message( 0, OWNIP, CONNECTIP, Port, 0, DEBUG_MODE);
 	  if (fatal_err == -1) return 0;
 
 	  fatal_err = joiningUser.close_connectSocket_(0, DEBUG_MODE);
 	  if (fatal_err == -1) return 0;
 
 	  std::thread myThread([&]() {
-		  int fatal_err = joiningUser.User_bind_listen_accept(IP1, IP2, Port, 0, DEBUG_MODE);
+		  int fatal_err = joiningUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 0, DEBUG_MODE);
 		  if (fatal_err == -1) {
 			  std::cout << "Error in User_bind_listen_accept!" << std::endl;
 
@@ -69,7 +78,7 @@ int main()
 
 	  myThread.join();
 
-	  fatal_err = joiningUser.User_handle_handshake_backconnect_friendrequest_message( 1, IP1, IP2, Port, 0, DEBUG_MODE);
+	  fatal_err = joiningUser.User_handle_handshake_backconnect_friendrequest_message( 1, OWNIP, CONNECTIP, Port, 0, DEBUG_MODE);
 	  if (fatal_err == -1) return 0;
 
 	  fatal_err = joiningUser.send_recieve(1, 0, DEBUG_MODE);
@@ -80,7 +89,7 @@ int main()
 	else
 	{
 		std::thread myThread([&]() {
-			int fatal_err = firstUser.User_bind_listen_accept(IP2, IP1, Port, 0, DEBUG_MODE);
+			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 0, DEBUG_MODE);
 			if (fatal_err == -1) {
 				std::cout << "Error in User_bind_listen_accept!" << std::endl;
 			
@@ -92,17 +101,17 @@ int main()
 		//fatal_err = firstUser.User_bind_listen_accept(IP2, IP1, Port, 0, DEBUG_MODE);
 		//if (fatal_err == -1) return 0;
 
-		fatal_err = firstUser.User_handle_handshake_backconnect_friendrequest_message(0, IP2, IP1, Port, 0, DEBUG_MODE);
+		fatal_err = firstUser.User_handle_handshake_backconnect_friendrequest_message(0, OWNIP, CONNECTIP, Port, 0, DEBUG_MODE);
 		if (fatal_err == -1) return 0;
 
 		fatal_err = firstUser.close_acceptSocket_(0, DEBUG_MODE);
 		if (fatal_err == -1) return 0;
 
 		//--------------------------
-		fatal_err = firstUser.User_connect_to_P2P( IP2, IP1, Port, 0, DEBUG_MODE);
+		fatal_err = firstUser.User_connect_to_P2P(OWNIP, CONNECTIP, Port, 0, DEBUG_MODE);
 		if (fatal_err == -1) return 0;
 
-		fatal_err = firstUser.User_send_handshake_backconnect_friendrequest_message( 1, IP2, IP1, Port,  0, DEBUG_MODE);
+		fatal_err = firstUser.User_send_handshake_backconnect_friendrequest_message( 1, OWNIP, CONNECTIP, Port,  0, DEBUG_MODE);
 		if (fatal_err == -1) return 0;
 
 		fatal_err = firstUser.send_recieve(0, 0, DEBUG_MODE);
