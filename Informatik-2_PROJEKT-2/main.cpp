@@ -100,8 +100,10 @@ int main()
 	  fatal_err = joiningUser.close_connectSocket_(0, DEBUG_MODE);
 	  if (fatal_err == -1) return 0;
 
+	  std::string toConnectIP = joiningUser.IP_Store[1];
+
 	  std::thread myThread([&]() {
-		  int fatal_err = joiningUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 0, DEBUG_MODE);
+		  int fatal_err = joiningUser.User_bind_listen_accept(OWNIP, toConnectIP, Port, 0, DEBUG_MODE);
 		  if (fatal_err == -1) {
 			  std::cout << "Error in User_bind_listen_accept!" << std::endl;
 
@@ -121,7 +123,7 @@ int main()
 	else
 	{
 		std::thread myThread([&]() {
-			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, firstUser.IP_Store[0], Port, 0, DEBUG_MODE);
+			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 0, DEBUG_MODE);
 			if (fatal_err == -1) {
 				std::cout << "Error in User_bind_listen_accept!" << std::endl;
 			
