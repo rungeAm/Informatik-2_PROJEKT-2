@@ -116,14 +116,14 @@ int createMessageID()
 std::string get_message(std::string input)
 {
 	
-	return input.substr(5, 1023);
+	return input.substr(7, 1023);
 
 }
 
 int get_ID(std::string input)
 		
 {
-	return ((int)stringToFloat(input.substr(0, 5)));
+	return ((int)stringToFloat(input.substr(0, 6)));
 }
 
 std::string cutEmptySpaces(std::string input)
