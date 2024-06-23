@@ -584,7 +584,7 @@ public:
 
 			cout << get_message((string)buffer) << endl;
 
-
+			cout << "got to end of send loop! " << endl << endl;
 
 
 		}
