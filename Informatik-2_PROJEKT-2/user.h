@@ -563,7 +563,7 @@ public:
 					return 0;
 
 				}
-				send_recieve(0, connectionNr, debug);
+				send_recieve(false, connectionNr, debug);
 			}
 
 			else if (!send_first) {
@@ -586,7 +586,7 @@ public:
 
 				cout << "got to end of send loop! " << endl << endl;
 
-				send_recieve(1, connectionNr, debug);
+				send_recieve(true, connectionNr, debug);
 			}
 
 		
