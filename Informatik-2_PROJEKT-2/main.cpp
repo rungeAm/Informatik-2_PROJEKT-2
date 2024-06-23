@@ -102,7 +102,7 @@ int main()
 
 	  std::string toConnectIP1 = joiningUser.IP_Store[1];
 
-	  std::thread myThread([&]() {
+	  std::thread myThread1([&]() {
 		  int fatal_err = joiningUser.User_bind_listen_accept(OWNIP, toConnectIP1, Port, 0, DEBUG_MODE);
 		  if (fatal_err == -1) {
 			  std::cout << "Error in User_bind_listen_accept!" << std::endl;
@@ -110,7 +110,7 @@ int main()
 		  }
 		  });
 
-	  std::thread myThread([&]() {
+	  std::thread myThread2([&]() {
 		  int fatal_err = joiningUser.User_bind_listen_accept(OWNIP, toConnectIP1, Port, 1, DEBUG_MODE);
 		  if (fatal_err == -1) {
 			  std::cout << "Error in User_bind_listen_accept!" << std::endl;
@@ -119,7 +119,7 @@ int main()
 		  });
 
 
-	  std::thread myThread([&]() {
+	  std::thread myThread3([&]() {
 		  int fatal_err = joiningUser.User_bind_listen_accept(OWNIP, toConnectIP1, Port, 2, DEBUG_MODE);
 		  if (fatal_err == -1) {
 			  std::cout << "Error in User_bind_listen_accept!" << std::endl;
@@ -128,7 +128,7 @@ int main()
 		  });
 
 
-	  std::thread myThread([&]() {
+	  std::thread myThread4([&]() {
 		  int fatal_err = joiningUser.User_bind_listen_accept(OWNIP, toConnectIP1, Port, 3, DEBUG_MODE);
 		  if (fatal_err == -1) {
 			  std::cout << "Error in User_bind_listen_accept!" << std::endl;
@@ -150,7 +150,7 @@ int main()
 	}
 	else
 	{
-		std::thread myThread([&]() {
+		std::thread myThread1([&]() {
 			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 0, DEBUG_MODE);
 			if (fatal_err == -1) {
 				std::cout << "Error in User_bind_listen_accept!" << std::endl;
@@ -158,7 +158,7 @@ int main()
 			}
 			});
 
-		std::thread myThread([&]() {
+		std::thread myThread2([&]() {
 			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 1, DEBUG_MODE);
 			if (fatal_err == -1) {
 				std::cout << "Error in User_bind_listen_accept!" << std::endl;
@@ -166,7 +166,7 @@ int main()
 			}
 			});
 
-		std::thread myThread([&]() {
+		std::thread myThread3([&]() {
 			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 2, DEBUG_MODE);
 			if (fatal_err == -1) {
 				std::cout << "Error in User_bind_listen_accept!" << std::endl;
@@ -174,7 +174,7 @@ int main()
 			}
 			});
 
-		std::thread myThread([&]() {
+		std::thread myThread4([&]() {
 			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 3, DEBUG_MODE);
 			if (fatal_err == -1) {
 				std::cout << "Error in User_bind_listen_accept!" << std::endl;
