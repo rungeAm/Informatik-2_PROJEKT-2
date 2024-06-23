@@ -353,7 +353,7 @@ public:
 		}
 		else
 		{
-			std::memset(buffer, '\0', sizeof(buffer));
+		//	std::memset(buffer, '\0', sizeof(buffer));
 
 
 			if (checkIP((string)buffer))
