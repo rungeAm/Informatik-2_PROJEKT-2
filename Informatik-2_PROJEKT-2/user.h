@@ -581,18 +581,12 @@ public:
 				memset(buffer2, '\0', sizeof(buffer2));
 				message.clear();
 
-			
+				err = recv(acceptSockets[connectionNr], buffer2, 1023, 0);
 
-				if (err == 0)
+
+				if (!(checkID(get_ID((std::string)buffer2))))
 				{
-
-					cout << "Error recieving message! " << endl;
-
-				}
-
-				if (!(checkID(get_ID((std::string)buffer))))
-				{
-					err = recv(acceptSockets[connectionNr], buffer2, 1023, 0);
+					
 					if (err == SOCKET_ERROR) {if(debug) cout << "SOCKET ERROR at recieve: " << WSAGetLastError() << endl; }
 					err = send(acceptSockets[connectionNr], (get_message((string)buffer2)).c_str(), 1023, 0);
 				}
