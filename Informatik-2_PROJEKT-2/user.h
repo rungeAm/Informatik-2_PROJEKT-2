@@ -363,7 +363,9 @@ public:
 				return 0;
 			}
 			else
+
 				cout << "IP already known!" << endl;
+			 cout << "recieved IP stored: " << string(buffer);
 
 			return 0;
 		}
