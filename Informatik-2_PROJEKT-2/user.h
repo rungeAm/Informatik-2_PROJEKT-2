@@ -461,7 +461,7 @@ public:
 			return -1;
 		}
 
-		if ((buffer) == "FRIEND REQUEST")
+		if (string(buffer) == "FRIEND REQUEST")
 
 		{
 			int err2 = -1;
