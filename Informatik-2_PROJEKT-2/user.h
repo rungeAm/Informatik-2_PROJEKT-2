@@ -581,7 +581,7 @@ public:
 				memset(buffer2, '\0', sizeof(buffer2));
 				message.clear();
 
-				err = recv(acceptSockets[connectionNr], buffer2, 1023, 0);
+			
 
 				if (err == 0)
 				{
@@ -592,13 +592,14 @@ public:
 
 				if (!(checkID(get_ID((std::string)buffer))))
 				{
-					err = send(acceptSockets[connectionNr], (get_message((string)buffer2)).c_str(), 1023, 0);
+					err = recv(acceptSockets[connectionNr], buffer2, 1023, 0);
 				}
 				else
 				{
 					cout << "IP: " << get_ID((std::string)buffer2);
 				}
 
+				err = send(acceptSockets[connectionNr], (get_message((string)buffer2)).c_str(), 1023, 0);
 				cout << "Message recieved: "  << get_message((string)buffer2) << endl;
 
 				cout << "got to end of send loop! " << endl << endl;
