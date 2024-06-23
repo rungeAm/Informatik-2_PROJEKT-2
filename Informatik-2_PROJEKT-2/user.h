@@ -718,6 +718,8 @@ public:
 	int User_send_handshake_backconnect_friendrequest_message(bool FR, std::string ownIP, std::string connectIP, int port, int connectionNr, bool DEBUG_MODE)
 	{
 		int fatal_err = 0;
+		this->ownIP = ownIP;
+		this->connectIP = connectIP;
 
 		sendHandshake(connectionNr, DEBUG_MODE);
 			if (fatal_err == -1)
