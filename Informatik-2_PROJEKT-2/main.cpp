@@ -102,6 +102,9 @@ int main()
 
 	  std::string toConnectIP1 = joiningUser.IP_Store[1];
 
+	  joiningUser.create_mainSocket(DEBUG_MODE);
+
+
 	  std::thread myThread1([&]() {
 		  int fatal_err = joiningUser.User_bind_listen_accept(OWNIP, toConnectIP1, Port, 0, DEBUG_MODE);
 		  if (fatal_err == -1) {
@@ -153,6 +156,9 @@ int main()
 	}
 	else
 	{
+
+		firstUser.create_mainSocket(DEBUG_MODE);
+
 		std::thread myThread1([&]() {
 			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 0, DEBUG_MODE);
 			if (fatal_err == -1) {

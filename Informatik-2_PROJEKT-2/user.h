@@ -664,7 +664,7 @@ public:
 		this->connectIP = connectIP;
 		this->port = port;
 
-		create_mainSocket(DEBUG_MODE);
+		
 
 		bind_(ownIP, DEBUG_MODE);
 		listen_(20, DEBUG_MODE);
