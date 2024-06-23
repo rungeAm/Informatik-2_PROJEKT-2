@@ -510,15 +510,10 @@ public:
 		static bool logoff = 0;
 		static string input;
 		input.clear();
-		static string input2;
-		input.clear();
 		static string message;
-		message.clear();
-		static string message2;
 		message.clear();
 
 		char buffer[1024] = { 0 };
-		char buffer2[1024] = { 0 };
 		int err = 0;
 		int ID;
 
@@ -578,10 +573,10 @@ public:
 			else if (!send_first) {
 
 				cout << endl << "-----------------send_first == 0" << endl;
-				memset(buffer2, '\0', sizeof(buffer2));
+				memset(buffer, '\0', sizeof(buffer));
 				message.clear();
 
-				err = recv(acceptSockets[connectionNr], buffer2, 1023, 0);
+				err = recv(acceptSockets[connectionNr], buffer, 1023, 0);
 
 				if (err == 0)
 				{
@@ -592,14 +587,14 @@ public:
 
 				if (!(checkID(get_ID((std::string)buffer))))
 				{
-					err = send(acceptSockets[connectionNr], (get_message((string)buffer2)).c_str(), 1023, 0);
+					err = send(acceptSockets[connectionNr], (get_message((string)buffer)).c_str(), 1023, 0);
 				}
 				else
 				{
-					cout << "IP: " << get_ID((std::string)buffer2);
+					cout << "unknown IP!!: " << get_ID((std::string)buffer);
 				}
 
-				cout << "Message recieved: "  << get_message((string)buffer2) << endl;
+				cout << "Message recieved: "  << get_message((string)buffer) << endl;
 
 				cout << "got to end of send loop! " << endl << endl;
 
