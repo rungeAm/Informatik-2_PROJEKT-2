@@ -508,10 +508,14 @@ public:
 		if (debug)
 			cout << endl << "----------enter send_recieve" << endl;
 		bool logoff = 0;
-		string input = "";
-		string message = "";
+		string input;
+		input.empty();
+		string message;
+		message.empty();
+
 		char buffer[1024] = { 0 };
 		int err = 0;
+		int ID;
 
 		while (!logoff)
 		{
@@ -519,12 +523,16 @@ public:
 
 			if (send_first)
 			{
-
+				cout << "sending first!" << endl;
 			Repeat:
-				int ID = createMessageID();
+				ID = createMessageID();
+
+				cout << "created Message ID!" << endl;
 
 				if (checkID(ID) == -1) goto Repeat;
 				this->ID_Store.push_back(ID);
+
+				cout << "stored Message ID!" << endl;
 
 				if (ID != (*ID_Store.end()))
 				{
