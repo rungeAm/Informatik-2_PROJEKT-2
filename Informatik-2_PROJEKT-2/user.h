@@ -534,11 +534,11 @@ public:
 
 				cout << "stored Message ID!" << endl;
 
-				if (ID != (*ID_Store.end()))
-				{
-					if (debug) cout << "Error stroring ID!";
-					return -1;
-				}
+			//	if (ID != (*ID_Store.end()))
+				//{
+			//		if (debug) cout << "Error stroring ID!";
+			//		return -1;
+			//	}
 				
 				cout << "Enter message: ";
 
