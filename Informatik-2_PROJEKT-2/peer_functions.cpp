@@ -129,10 +129,9 @@ int get_ID(std::string input)
 std::string cutEmptySpaces(std::string input)
 {
 	int nullo = input.find('\0');
-	string output;
-	std::string output = input.substr(0, nullo);
 
-	return output;
+
+	return input.substr(0, nullo);
 }
 		
 

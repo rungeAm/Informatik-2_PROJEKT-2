@@ -357,7 +357,7 @@ public:
 		//	std::memset(buffer, '\0', sizeof(buffer));
 
 
-			if (checkIP((niceIP))
+			if (checkIP((niceIP)))
 			{
 				IP_Store.push_back(buffer);
 				if (debug) cout << "recieved IP stored: " << niceIP;
