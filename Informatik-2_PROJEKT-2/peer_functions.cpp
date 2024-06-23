@@ -133,6 +133,5 @@ std::string cutEmptySpaces(std::string input)
 
 	return input.substr(0, nullo);
 }
-		
 
 

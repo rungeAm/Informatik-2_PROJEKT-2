@@ -49,9 +49,41 @@ int main()
 	start_(DEBUG_MODE);
 	cout << "enter own IP: ";
 	cin >> OWNIP;
+	if (OWNIP == "a")
+	{
+		OWNIP = "192.168.233.114";
+	}
+	else if (OWNIP == "b")
+	{
+		OWNIP = "192.168.233.10";
+	}
+	else if (OWNIP == "c")
+	{
+		OWNIP = "192.168.233.232";
+	}
+	else
+	{
+		OWNIP = OWNIP;
+	}
 
 	cout << "enter connect IP!";
 	cin >> CONNECTIP;
+	if (CONNECTIP == "a")
+	{
+		CONNECTIP = "192.168.233.114";
+	}
+	else if (CONNECTIP == "b")
+	{
+		CONNECTIP = "192.168.233.10";
+	}
+	else if (CONNECTIP == "c")
+	{
+		CONNECTIP = "192.168.233.232";
+	}
+	else
+	{
+		CONNECTIP = CONNECTIP;
+	}
 
 	cout << "First User? " << endl;
 	cin >> firstUserC;
