@@ -28,8 +28,8 @@ int Port = 26005;
 //string IP2 = "192.168.1.105";
 
 //PHONE
-string IP1 = "192.168.68.114";
-string IP2 = "192.168.68.10";
+string IP1 = "192.168.233.114";
+string IP2 = "192.168.233.10";
 
 User firstUser, joiningUser;
 
