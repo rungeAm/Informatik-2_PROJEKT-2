@@ -522,9 +522,10 @@ public:
 
 			if (send_first)
 			{
+				cout << endl << "-----------------send_first == 1" << endl;
+				memset(buffer, '\0', sizeof(buffer));
 				message.clear();
-				message.clear();
-				cout << "sending first!" << endl;
+			
 			Repeat:
 				ID = createMessageID();
 
@@ -570,7 +571,8 @@ public:
 
 			else if (!send_first) {
 
-				message.clear();
+				cout << endl << "-----------------send_first == 0" << endl;
+				memset(buffer, '\0', sizeof(buffer));
 				message.clear();
 
 				err = recv(acceptSockets[connectionNr], buffer, 1023, 0);
