@@ -59,8 +59,15 @@ int main()
 	  fatal_err = joiningUser.close_connectSocket_(0, DEBUG_MODE);
 	  if (fatal_err == -1) return 0;
 
-	  fatal_err = joiningUser.User_bind_listen_accept( IP1, IP2, Port, 0, DEBUG_MODE);
-	  if (fatal_err == -1) return 0;
+	  std::thread myThread([&]() {
+		  int fatal_err = joiningUser.User_bind_listen_accept(IP1, IP2, Port, 0, DEBUG_MODE);
+		  if (fatal_err == -1) {
+			  std::cout << "Error in User_bind_listen_accept!" << std::endl;
+
+		  }
+		  });
+
+	  myThread.join();
 
 	  fatal_err = joiningUser.User_handle_handshake_backconnect_friendrequest_message( 1, IP1, IP2, Port, 0, DEBUG_MODE);
 	  if (fatal_err == -1) return 0;
@@ -72,10 +79,18 @@ int main()
 	}
 	else
 	{
-	
+		std::thread myThread([&]() {
+			int fatal_err = firstUser.User_bind_listen_accept(IP2, IP1, Port, 0, DEBUG_MODE);
+			if (fatal_err == -1) {
+				std::cout << "Error in User_bind_listen_accept!" << std::endl;
+			
+			}
+			});
 
-		fatal_err = firstUser.User_bind_listen_accept(IP2, IP1, Port, 0, DEBUG_MODE);
-		if (fatal_err == -1) return 0;
+		myThread.join();
+
+		//fatal_err = firstUser.User_bind_listen_accept(IP2, IP1, Port, 0, DEBUG_MODE);
+		//if (fatal_err == -1) return 0;
 
 		fatal_err = firstUser.User_handle_handshake_backconnect_friendrequest_message(0, IP2, IP1, Port, 0, DEBUG_MODE);
 		if (fatal_err == -1) return 0;
