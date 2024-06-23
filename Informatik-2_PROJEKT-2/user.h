@@ -507,10 +507,10 @@ public:
 	{
 		if (debug)
 			cout << endl << "----------enter send_recieve" << endl;
-		bool logoff = 0;
-		string input;
+		static bool logoff = 0;
+		static string input;
 		input.empty();
-		string message;
+		static string message;
 		message.empty();
 
 		char buffer[1024] = { 0 };
@@ -566,7 +566,7 @@ public:
 				send_recieve(0, connectionNr, debug);
 			}
 
-			else {
+			else if (!send_first) {
 
 				err = recv(acceptSockets[connectionNr], buffer, 1023, 0);
 
