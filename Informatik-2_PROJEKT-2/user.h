@@ -593,13 +593,16 @@ public:
 				if (!(checkID(get_ID((std::string)buffer))))
 				{
 					err = recv(acceptSockets[connectionNr], buffer2, 1023, 0);
+					if (err == SOCKET_ERROR) {if(debug) cout << "SOCKET ERROR at recieve: " << WSAGetLastError() << endl; }
+					err = send(acceptSockets[connectionNr], (get_message((string)buffer2)).c_str(), 1023, 0);
 				}
 				else
 				{
 					cout << "IP: " << get_ID((std::string)buffer2);
 				}
 
-				err = send(acceptSockets[connectionNr], (get_message((string)buffer2)).c_str(), 1023, 0);
+				
+
 				cout << "Message recieved: "  << get_message((string)buffer2) << endl;
 
 				cout << "got to end of send loop! " << endl << endl;
