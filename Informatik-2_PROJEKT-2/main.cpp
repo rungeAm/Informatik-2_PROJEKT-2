@@ -106,6 +106,7 @@ int main()
 
 
 	  std::thread myThread1([&]() {
+		  cout << "entering listen Thread 1! " << endl << endl;
 		  int fatal_err = joiningUser.User_bind_listen_accept(OWNIP, toConnectIP1, Port, 0, DEBUG_MODE);
 		  if (fatal_err == -1) {
 			  std::cout << "Error in User_bind_listen_accept!" << std::endl;
@@ -114,6 +115,7 @@ int main()
 		  });
 
 	  std::thread myThread2([&]() {
+		  cout << "entering listen Thread 2! " << endl << endl;
 		  int fatal_err = joiningUser.User_bind_listen_accept(OWNIP, toConnectIP1, Port, 1, DEBUG_MODE);
 		  if (fatal_err == -1) {
 			  std::cout << "Error in User_bind_listen_accept!" << std::endl;
@@ -121,7 +123,7 @@ int main()
 		  }
 		  });
 
-
+/*
 	  std::thread myThread3([&]() {
 		  int fatal_err = joiningUser.User_bind_listen_accept(OWNIP, toConnectIP1, Port, 2, DEBUG_MODE);
 		  if (fatal_err == -1) {
@@ -139,12 +141,12 @@ int main()
 		  }
 		  });
 
-
+*/
 
 	  myThread1.join();
 	  myThread2.join();
-	  myThread3.join();
-	  myThread4.join();
+	//  myThread3.join();
+	//  myThread4.join();
 
 	  fatal_err = joiningUser.User_handle_handshake_backconnect_friendrequest_message( 1, OWNIP, CONNECTIP, Port, 0, DEBUG_MODE);
 	  if (fatal_err == -1) return 0;
@@ -160,6 +162,7 @@ int main()
 		firstUser.create_mainSocket(DEBUG_MODE);
 
 		std::thread myThread1([&]() {
+			cout << "entering listen Thread 1! " << endl << endl;
 			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 0, DEBUG_MODE);
 			if (fatal_err == -1) {
 				std::cout << "Error in User_bind_listen_accept!" << std::endl;
@@ -168,13 +171,14 @@ int main()
 			});
 
 		std::thread myThread2([&]() {
+			cout << "entering listen Thread 2! " << endl << endl;
 			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 1, DEBUG_MODE);
 			if (fatal_err == -1) {
 				std::cout << "Error in User_bind_listen_accept!" << std::endl;
 
 			}
 			});
-
+		/*
 		std::thread myThread3([&]() {
 			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 2, DEBUG_MODE);
 			if (fatal_err == -1) {
@@ -191,11 +195,11 @@ int main()
 			}
 			});
 
-
+			*/
 		myThread1.join();
 		myThread2.join();
-		myThread3.join();
-		myThread4.join();
+		//myThread3.join();
+		//myThread4.join();
 
 		//fatal_err = firstUser.User_bind_listen_accept(IP2, IP1, Port, 0, DEBUG_MODE);
 		//if (fatal_err == -1) return 0;
