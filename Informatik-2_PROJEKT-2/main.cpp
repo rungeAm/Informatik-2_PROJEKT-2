@@ -79,7 +79,7 @@ int main()
 	else if (CONNECTIP == "c")
 	{
 		CONNECTIP = "192.168.233.232";
-	}
+	} 
 	else
 	{
 		CONNECTIP = CONNECTIP;
