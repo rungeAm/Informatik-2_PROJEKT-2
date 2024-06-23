@@ -469,13 +469,13 @@ public:
 
 			err2 = send(acceptSockets[connectionNr], IPtoSend.c_str(), IPtoSend.size(), 0);
 
-			if (err2 == 0)
+			if (err2 != SOCKET_ERROR)
 			{
 				if (debug)
 					cout << "Sent IP: " << IPtoSend << endl;
 				return 0;
 			}
-			else if (err2 != 0)
+			else if (err2 == SOCKET_ERROR)
 			{
 				cout << "sending IP failed! Error: " << WSAGetLastError() << endl;
 				return -1;
