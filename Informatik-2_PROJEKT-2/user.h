@@ -517,8 +517,7 @@ public:
 		int err = 0;
 		int ID;
 
-		while (!logoff)
-		{
+	
 			message.clear();
 
 			if (send_first)
@@ -556,8 +555,7 @@ public:
 						cout << "Error sending message! " << endl;
 					}
 				}
-				else
-				{ }
+			
 
 				if (message == "/disconnect")
 				{
@@ -565,27 +563,31 @@ public:
 					return 0;
 
 				}
-			}
-			send_first = 1;
-
-			err = recv(acceptSockets[connectionNr], buffer, 1023, 0);
-
-			if (err != 0)
-			{
-
-				cout << "Error sending message! " << endl;
-
+				send_recieve(0, connectionNr, debug);
 			}
 
-			if (!(checkID(get_ID((std::string)buffer))))
-			{
-				err = send(acceptSockets[connectionNr], (get_message((string)buffer)).c_str(), 1023, 0);
+			else {
+
+				err = recv(acceptSockets[connectionNr], buffer, 1023, 0);
+
+				if (err != 0)
+				{
+
+					cout << "Error sending message! " << endl;
+
+				}
+
+				if (!(checkID(get_ID((std::string)buffer))))
+				{
+					err = send(acceptSockets[connectionNr], (get_message((string)buffer)).c_str(), 1023, 0);
+				}
+
+				cout << get_message((string)buffer) << endl;
+
+				cout << "got to end of send loop! " << endl << endl;
+
+				send_recieve(1, connectionNr, debug);
 			}
-
-			cout << get_message((string)buffer) << endl;
-
-			cout << "got to end of send loop! " << endl << endl;
-
 
 		}
 
