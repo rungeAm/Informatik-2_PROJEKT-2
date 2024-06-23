@@ -342,6 +342,7 @@ public:
 		cout << "created buffer " << endl;
 
 		err = recv(connectSockets[connectionNr], buffer, sizeof(buffer), 0);
+		string niceIP = cutEmptySpaces(string(buffer));
 
 		cout << "went thru recv function!" << endl;
 
@@ -356,16 +357,16 @@ public:
 		//	std::memset(buffer, '\0', sizeof(buffer));
 
 
-			if (checkIP((string)buffer))
+			if (checkIP((niceIP))
 			{
 				IP_Store.push_back(buffer);
-				if (debug) cout << "recieved IP stored: " << buffer;
+				if (debug) cout << "recieved IP stored: " << niceIP;
 				return 0;
 			}
 			else
 
 				cout << "IP already known!" << endl;
-			 cout << "recieved IP stored: " << string(buffer);
+			 cout << "recieved IP stored: " << niceIP;
 
 			return 0;
 		}

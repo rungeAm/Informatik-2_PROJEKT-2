@@ -11,3 +11,4 @@ std::string checkBACKCONNECT(std::string text);
 int createMessageID();
 int get_ID(std::string input);
 std::string get_message(std::string input);
+std::string cutEmptySpaces(std::string input);
