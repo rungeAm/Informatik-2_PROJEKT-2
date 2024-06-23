@@ -116,7 +116,7 @@ int createMessageID()
 std::string get_message(std::string input)
 {
 	
-	return input.substr(6, 1023);
+	return input.substr(5, 1023);
 
 }
 

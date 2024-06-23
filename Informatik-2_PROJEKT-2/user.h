@@ -552,10 +552,11 @@ public:
 
 				err = send(acceptSockets[connectionNr], message.c_str(), message.size(), 0);
 
-				if (err != 0)
+				if (err == SOCKET_ERROR)
 				{
 					{
 						cout << "Error sending message! " << endl;
+						return -1;
 					}
 				}
 			
