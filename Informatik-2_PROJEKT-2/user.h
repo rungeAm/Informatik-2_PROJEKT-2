@@ -589,7 +589,7 @@ public:
 					err = send(acceptSockets[connectionNr], (get_message((string)buffer)).c_str(), 1023, 0);
 				}
 
-				cout << get_message((string)buffer) << endl;
+				cout << "Message recieved: "  << get_message((string)buffer) << endl;
 
 				cout << "got to end of send loop! " << endl << endl;
 
