@@ -207,7 +207,7 @@ int main()
 
 			*/
 		myThread1.join();
-		myThread2.join();
+		//myThread2.join();
 		//myThread3.join();
 		//myThread4.join();
 
