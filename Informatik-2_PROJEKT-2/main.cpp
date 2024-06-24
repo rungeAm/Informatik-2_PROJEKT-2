@@ -117,7 +117,7 @@ int main()
 
 		  }
 		  });
-	  /*
+	  
 	  std::thread myThread2([&]() {
 		  cout << "entering listen Thread 2! " << endl << endl;
 		  int fatal_err = joiningUser.User_bind_listen_accept(OWNIP, toConnectIP1, Port, 1, DEBUG_MODE);
@@ -127,7 +127,7 @@ int main()
 		  }
 		  });
 
-
+	  /*
 	  std::thread myThread3([&]() {
 		  int fatal_err = joiningUser.User_bind_listen_accept(OWNIP, toConnectIP1, Port, 2, DEBUG_MODE);
 		  if (fatal_err == -1) {
@@ -148,7 +148,7 @@ int main()
 */
 
 	  myThread1.join();
-	//  myThread2.join();
+	 myThread2.join();
 	//  myThread3.join();
 	//  myThread4.join();
 
@@ -173,7 +173,7 @@ int main()
 			
 			}
 			});
-		/*
+		
 		std::thread myThread2([&]() {
 			cout << "entering listen Thread 2! " << endl << endl;
 			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 1, DEBUG_MODE);
@@ -182,7 +182,7 @@ int main()
 
 			}
 			});
-		
+		/*
 		std::thread myThread3([&]() {
 			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 2, DEBUG_MODE);
 			if (fatal_err == -1) {
@@ -201,7 +201,7 @@ int main()
 
 			*/
 		myThread1.join();
-		//myThread2.join();
+		myThread2.join();
 		//myThread3.join();
 		//myThread4.join();
 
