@@ -16,21 +16,21 @@ using  std::cin;
 using std::string;
 
 bool DEBUG_MODE = 1;
-int Port = 26005;
+int Port = 26000;
 
 //LajosROUTER
-//string IP1 = "192.168.178.25";
-//string IP2 = "192.168.178.27";
-//string IP3 = "192.168.178.24";
+string IP1 = "192.168.178.25";
+string IP2 = "192.168.178.27";
+string IP3 = "192.168.178.24";
 
 //HOME
 //string IP1 = "192.168.1.102";
 //string IP2 = "192.168.1.105";
 
 //PHONE
-string IP1 = "192.168.233.114";
-string IP2 = "192.168.233.10";
-string IP3 = "192.168.233.232";
+//string IP1 = "192.168.233.114";
+//string IP2 = "192.168.233.10";
+//string IP3 = "192.168.233.232";
 
 User firstUser, joiningUser;
 
@@ -39,6 +39,8 @@ User firstUser, joiningUser;
 
 int main()
 {
+
+
 	string OWNIP;
 	string CONNECTIP;
 
@@ -51,34 +53,36 @@ int main()
 	cin >> OWNIP;
 	if (OWNIP == "a")
 	{
-		OWNIP = "192.168.233.114";
+		OWNIP = IP1;
 	}
 	else if (OWNIP == "b")
 	{
-		OWNIP = "192.168.233.10";
+		OWNIP = IP2;
 	}
 	else if (OWNIP == "c")
 	{
-		OWNIP = "192.168.233.232";
+		OWNIP = IP3;
 	}
 	else
 	{
 		OWNIP = OWNIP;
 	}
 
+
+
 	cout << "enter connect IP!";
 	cin >> CONNECTIP;
 	if (CONNECTIP == "a")
 	{
-		CONNECTIP = "192.168.233.114";
+		CONNECTIP = IP1;
 	}
 	else if (CONNECTIP == "b")
 	{
-		CONNECTIP = "192.168.233.10";
+		CONNECTIP = IP2;
 	}
 	else if (CONNECTIP == "c")
 	{
-		CONNECTIP = "192.168.233.232";
+		CONNECTIP = IP2;
 	} 
 	else
 	{
@@ -113,7 +117,7 @@ int main()
 
 		  }
 		  });
-
+	  /*
 	  std::thread myThread2([&]() {
 		  cout << "entering listen Thread 2! " << endl << endl;
 		  int fatal_err = joiningUser.User_bind_listen_accept(OWNIP, toConnectIP1, Port, 1, DEBUG_MODE);
@@ -123,7 +127,7 @@ int main()
 		  }
 		  });
 
-/*
+
 	  std::thread myThread3([&]() {
 		  int fatal_err = joiningUser.User_bind_listen_accept(OWNIP, toConnectIP1, Port, 2, DEBUG_MODE);
 		  if (fatal_err == -1) {
@@ -144,7 +148,7 @@ int main()
 */
 
 	  myThread1.join();
-	  myThread2.join();
+	//  myThread2.join();
 	//  myThread3.join();
 	//  myThread4.join();
 
@@ -169,7 +173,7 @@ int main()
 			
 			}
 			});
-
+		/*
 		std::thread myThread2([&]() {
 			cout << "entering listen Thread 2! " << endl << endl;
 			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 1, DEBUG_MODE);
@@ -178,7 +182,7 @@ int main()
 
 			}
 			});
-		/*
+		
 		std::thread myThread3([&]() {
 			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 2, DEBUG_MODE);
 			if (fatal_err == -1) {
@@ -197,7 +201,7 @@ int main()
 
 			*/
 		myThread1.join();
-		myThread2.join();
+		//myThread2.join();
 		//myThread3.join();
 		//myThread4.join();
 

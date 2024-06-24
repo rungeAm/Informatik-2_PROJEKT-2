@@ -26,6 +26,7 @@ using  std::cin;
 using std::string;
 
 
+
 class User
 {
 public:
@@ -35,12 +36,14 @@ public:
 
 	SOCKET mainSocket = INVALID_SOCKET;
 	std::vector<SOCKET> acceptSockets = {};
+
 	sockaddr_in sAddr;
 
 	int port;
 	float version;
 	std::string connectIP;
 	std::string ownIP;
+
 	std::vector<int>ID_Store = { 000000 };
 	std::vector<std::string>IP_Store = { ownIP };
 
@@ -197,7 +200,7 @@ public:
 		}
 
 
-		acceptSockets.push_back(aSock);
+		this->acceptSockets.push_back(aSock);
 
 		if (aSock == acceptSockets.back())
 		{
@@ -223,6 +226,7 @@ public:
 	{
 		if (debug)
 			cout << endl << "----------enter connect_" << endl;
+
 		sockaddr_in sAddr;
 		sAddr.sin_family = AF_INET;
 		sAddr.sin_port = htons(port);
