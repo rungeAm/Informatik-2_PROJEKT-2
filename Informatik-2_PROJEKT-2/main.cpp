@@ -117,10 +117,12 @@ int main()
 
 		  }
 		  });
+
+	  std::string toConnectIP2 = joiningUser.IP_Store.back();
 	  
 	  std::thread myThread2([&]() {
 		  cout << "entering listen Thread 2! " << endl << endl;
-		  int fatal_err = joiningUser.User_bind_listen_accept(OWNIP, toConnectIP1, Port, 1, DEBUG_MODE);
+		  int fatal_err = joiningUser.User_bind_listen_accept(OWNIP, toConnectIP2, Port, 1, DEBUG_MODE);
 		  if (fatal_err == -1) {
 			  std::cout << "Error in User_bind_listen_accept!" << std::endl;
 
@@ -173,10 +175,12 @@ int main()
 			
 			}
 			});
+
+		string secondIP = firstUser.IP_Store.back();
 		
 		std::thread myThread2([&]() {
 			cout << "entering listen Thread 2! " << endl << endl;
-			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 1, DEBUG_MODE);
+			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, secondIP, Port, 1, DEBUG_MODE);
 			if (fatal_err == -1) {
 				std::cout << "Error in User_bind_listen_accept!" << std::endl;
 
