@@ -12,6 +12,8 @@
 #include <thread>
 #include <vector>
 #include<stddef.h>
+#include <mutex>
+#include <condition_variable>
 
 
 #include "peer_functions.h"

@@ -5,6 +5,8 @@
 #include <sstream>
 #include <thread>
 #include <vector>
+#include <mutex>
+#include <condition_variable>
 #include "user.h"
 #include "peer_functions.h"
 
@@ -117,7 +119,7 @@ int main()
 
 		  }
 		  });
-
+/*
 	  std::string toConnectIP2 = joiningUser.IP_Store.back();
 	  
 	  std::thread myThread2([&]() {
@@ -150,7 +152,7 @@ int main()
 */
 
 	  myThread1.join();
-	 myThread2.join();
+	// myThread2.join();
 	//  myThread3.join();
 	//  myThread4.join();
 
@@ -175,7 +177,7 @@ int main()
 			
 			}
 			});
-
+		/*
 		string secondIP = firstUser.IP_Store.back();
 		
 		std::thread myThread2([&]() {
@@ -186,7 +188,7 @@ int main()
 
 			}
 			});
-		/*
+		
 		std::thread myThread3([&]() {
 			int fatal_err = firstUser.User_bind_listen_accept(OWNIP, CONNECTIP, Port, 2, DEBUG_MODE);
 			if (fatal_err == -1) {
