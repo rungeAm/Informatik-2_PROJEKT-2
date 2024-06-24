@@ -104,7 +104,7 @@ int main()
 	  fatal_err = joiningUser.close_connectSocket_(0, DEBUG_MODE);
 	  if (fatal_err == -1) return 0;
 
-	  std::string toConnectIP1 = joiningUser.IP_Store[1];
+	  std::string toConnectIP1 = joiningUser.IP_Store.back();
 
 	  joiningUser.create_mainSocket(DEBUG_MODE);
 
